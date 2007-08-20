@@ -1,5 +1,5 @@
 //
-// $Id: StGenEvent.cc,v 1.0 2007/07/27 16:19:20 giamman Exp $
+// $Id: StGenEvent.cc,v 1.2.2.1 2007/08/02 16:28:33 giamman Exp $
 //
 
 #include "FWCore/Utilities/interface/EDMException.h"
@@ -84,8 +84,8 @@ StGenEvent::decayB() const
 {
   const reco::Candidate* cand=0;
   if (singleLepton()) {
-    const reco::Candidate & singleLep = *singleLepton();
     const reco::CandidateCollection & partsColl = *parts_;
+    const reco::Candidate & singleLep = *singleLepton();
     for (unsigned int i = 0; i < parts_->size(); ++i) {
       if (abs(partsColl[i].pdgId())==5 && 
 	  flavour(singleLep)== - flavour(partsColl[i])) { // ... but it should be the opposite!
@@ -101,8 +101,8 @@ StGenEvent::associatedB() const
 {
   const reco::Candidate* cand=0;
   if (singleLepton()) {
-    const reco::Candidate & singleLep = *singleLepton();
     const reco::CandidateCollection & partsColl = *parts_;
+    const reco::Candidate & singleLep = *singleLepton();
     for (unsigned int i = 0; i < parts_->size(); ++i) {
       if (abs(partsColl[i].pdgId())==5 && 
 	  flavour(singleLep)== flavour(partsColl[i])) { // ... but it should be the opposite!
@@ -118,8 +118,8 @@ StGenEvent::singleW() const
 {
   const reco::Candidate* cand=0;
   if (singleLepton()) {
-    const reco::Candidate & singleLep = *singleLepton();
     const reco::CandidateCollection & partsColl = *parts_;
+    const reco::Candidate & singleLep = *singleLepton();
     for (unsigned int i = 0; i < partsColl.size(); ++i) {
       if (abs(partsColl[i].pdgId())==24 &&
           flavour(singleLep) == - flavour(partsColl[i])) { // PDG Id:13=mu- 24=W+ (+24)->(-13) (-24)->(+13) opposite sign
@@ -135,8 +135,8 @@ StGenEvent::singleTop() const
 {
   const reco::Candidate* cand=0;
   if (singleLepton()) {
-    const reco::Candidate & singleLep = *singleLepton();
     const reco::CandidateCollection & partsColl = *parts_;
+    const reco::Candidate & singleLep = *singleLepton();
     for (unsigned int i = 0; i < partsColl.size(); ++i) {
       if (abs(partsColl[i].pdgId())==6 &&
           flavour(singleLep)!=flavour(partsColl[i])) {
