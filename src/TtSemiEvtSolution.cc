@@ -1,5 +1,5 @@
 //
-// $Id: TtSemiEvtSolution.cc,v 1.15 2007/07/25 13:32:35 rwolf Exp $
+// $Id: TtSemiEvtSolution.cc,v 1.16 2007/07/26 08:42:46 lowette Exp $
 //
 
 #include "AnalysisDataFormats/TopObjects/interface/TtSemiEvtSolution.h"
@@ -204,9 +204,9 @@ void TtSemiEvtSolution::setProbChi2(double c) { probChi2_ = c; }
 
 
 // methods to set the outcome of the different jet combination methods
-void TtSemiEvtSolution::setMCCorrJetComb(int mcbs)    { mcCorrJetComb_ = mcbs; }
-void TtSemiEvtSolution::setSimpleCorrJetComb(int sbs) { simpleCorrJetComb_ = sbs;  }
-void TtSemiEvtSolution::setLRCorrJetComb(int lrbs)    { lrCorrJetComb_ = lrbs;  }
+void TtSemiEvtSolution::setMCBestJetComb(int mcbs)    { mcCorrJetComb_ = mcbs; }
+void TtSemiEvtSolution::setSimpleBestJetComb(int sbs) { simpleCorrJetComb_ = sbs;  }
+void TtSemiEvtSolution::setLRBestJetComb(int lrbs)    { lrCorrJetComb_ = lrbs;  }
 void TtSemiEvtSolution::setLRJetCombObservables(std::vector<std::pair<unsigned int, double> > varval) {
   lrJetCombVarVal_.clear();
   for(size_t ijc = 0; ijc<varval.size(); ijc++) lrJetCombVarVal_.push_back(varval[ijc]);

@@ -1,5 +1,5 @@
 //
-// $Id: TtSemiEvtSolution.h,v 1.15 2007/07/20 07:03:14 lowette Exp $
+// $Id: TtSemiEvtSolution.h,v 1.16 2007/07/26 08:42:46 lowette Exp $
 //
 
 #ifndef TopObjects_TtSemiEvtSolution_h
@@ -112,9 +112,9 @@ class TtSemiEvtSolution {
     double                    getLRSignalEvtLRval() const      { return lrSignalEvtLRval_; }
     double                    getLRSignalEvtProb() const       { return lrSignalEvtProb_; }
     // methods to get info on the outcome of the different jet combination methods
-    int                       getMCCorrJetComb() const         { return mcCorrJetComb_; }
-    int                       getSimpleCorrJetComb() const     { return simpleCorrJetComb_; }
-    int                       getLRCorrJetComb() const         { return lrCorrJetComb_; }
+    int                       getMCBestJetComb() const         { return mcCorrJetComb_; }
+    int                       getSimpleBestJetComb() const     { return simpleCorrJetComb_; }
+    int                       getLRBestJetComb() const         { return lrCorrJetComb_; }
     double                    getLRJetCombObsVal(unsigned int) const;
     double                    getLRJetCombLRval() const        { return lrJetCombLRval_; }
     double                    getLRJetCombProb() const         { return lrJetCombProb_; }
@@ -152,9 +152,9 @@ class TtSemiEvtSolution {
     // method to set the prob. of the chi2 value resulting from the kinematic fit 
     void                      setProbChi2(double c);
     // methods to set the outcome of the different jet combination methods
-    void                      setMCCorrJetComb(int mcbs);
-    void                      setSimpleCorrJetComb(int sbs);
-    void                      setLRCorrJetComb(int lrbs);
+    void                      setMCBestJetComb(int mcbs);
+    void                      setSimpleBestJetComb(int sbs);
+    void                      setLRBestJetComb(int lrbs);
     void                      setLRJetCombObservables(std::vector<std::pair<unsigned int, double> > varval);
     void                      setLRJetCombLRval(double clr);
     void                      setLRJetCombProb(double plr);
@@ -179,6 +179,7 @@ class TtSemiEvtSolution {
     int                       changeWQ_;
     int                       jetParam_, lepParam_, metParam_;
     double                    probChi2_;
+    // keep name *CorrJetComb_ to keep backwards compatibility for the 13X branch.
     int                       mcCorrJetComb_, simpleCorrJetComb_, lrCorrJetComb_;
     double                    lrJetCombLRval_, lrJetCombProb_;
     double                    lrSignalEvtLRval_, lrSignalEvtProb_;
