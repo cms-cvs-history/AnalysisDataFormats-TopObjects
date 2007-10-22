@@ -46,7 +46,7 @@ class TtSemiEvtSolution {
     TopElectron               getElectron() const;
     TopMET                    getNeutrino() const;
     // methods to get the MC matched particles
-    const TtGenEvent &        getGenEvent() const { return *theGenEvt_; }
+    const edm::RefProd<TtGenEvent> & getGenEvent() const;
     const reco::Candidate *   getGenHadt() const;
     const reco::Candidate *   getGenHadW() const;
     const reco::Candidate *   getGenHadb() const;
