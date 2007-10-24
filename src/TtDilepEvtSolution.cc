@@ -1,5 +1,5 @@
 //
-// $Id: TtDilepEvtSolution.cc,v 1.5 2007/07/20 07:05:14 lowette Exp $
+// $Id: TtDilepEvtSolution.cc,v 1.6 2007/07/25 13:32:35 rwolf Exp $
 //
 
 #include "AnalysisDataFormats/TopObjects/interface/TtDilepEvtSolution.h"
@@ -32,17 +32,17 @@ TopMET      TtDilepEvtSolution::getMET() const       { return *met_; }
 
 // methods to get the MC matched particles
 // FIXME: provide defaults if the genevent is invalid
-const TtGenEvent &      TtDilepEvtSolution::getGenEvent() const { return *theGenEvt_; }
-const reco::Candidate * TtDilepEvtSolution::getGenT() const    { return theGenEvt_->top(); }
-const reco::Candidate * TtDilepEvtSolution::getGenWp() const   { return theGenEvt_->wPlus(); }
-const reco::Candidate * TtDilepEvtSolution::getGenB() const    { return theGenEvt_->b(); }
-const reco::Candidate * TtDilepEvtSolution::getGenLepp() const { return theGenEvt_->leptonBar(); }
-const reco::Candidate * TtDilepEvtSolution::getGenN() const    { return theGenEvt_->neutrino(); }
-const reco::Candidate * TtDilepEvtSolution::getGenTbar() const { return theGenEvt_->topBar(); }
-const reco::Candidate * TtDilepEvtSolution::getGenWm() const   { return theGenEvt_->wMinus(); }
-const reco::Candidate * TtDilepEvtSolution::getGenBbar() const { return theGenEvt_->bBar(); }
-const reco::Candidate * TtDilepEvtSolution::getGenLepm() const { return theGenEvt_->lepton(); }
-const reco::Candidate * TtDilepEvtSolution::getGenNbar() const { return theGenEvt_->neutrinoBar(); }
+const edm::RefProd<TtGenEvent> & TtDilepEvtSolution::getGenEvent() const { return theGenEvt_; }
+const reco::Candidate * TtDilepEvtSolution::getGenT() const    { if (!theGenEvt_) return 0; else return theGenEvt_->top(); }
+const reco::Candidate * TtDilepEvtSolution::getGenWp() const   { if (!theGenEvt_) return 0; else return theGenEvt_->wPlus(); }
+const reco::Candidate * TtDilepEvtSolution::getGenB() const    { if (!theGenEvt_) return 0; else return theGenEvt_->b(); }
+const reco::Candidate * TtDilepEvtSolution::getGenLepp() const { if (!theGenEvt_) return 0; else return theGenEvt_->leptonBar(); }
+const reco::Candidate * TtDilepEvtSolution::getGenN() const    { if (!theGenEvt_) return 0; else return theGenEvt_->neutrino(); }
+const reco::Candidate * TtDilepEvtSolution::getGenTbar() const { if (!theGenEvt_) return 0; else return theGenEvt_->topBar(); }
+const reco::Candidate * TtDilepEvtSolution::getGenWm() const   { if (!theGenEvt_) return 0; else return theGenEvt_->wMinus(); }
+const reco::Candidate * TtDilepEvtSolution::getGenBbar() const { if (!theGenEvt_) return 0; else return theGenEvt_->bBar(); }
+const reco::Candidate * TtDilepEvtSolution::getGenLepm() const { if (!theGenEvt_) return 0; else return theGenEvt_->lepton(); }
+const reco::Candidate * TtDilepEvtSolution::getGenNbar() const { if (!theGenEvt_) return 0; else return theGenEvt_->neutrinoBar(); }
 
 
 // methods to explicitly get reconstructed and calibrated objects 
