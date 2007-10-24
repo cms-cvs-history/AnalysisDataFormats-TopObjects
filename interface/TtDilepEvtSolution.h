@@ -1,5 +1,5 @@
 //
-// $Id: TtDilepEvtSolution.h,v 1.8 2007/09/20 18:12:22 lowette Exp $
+// $Id$
 //
 
 #ifndef TopObjects_TtDilepEvtSolution_h
@@ -39,7 +39,7 @@ class TtDilepEvtSolution {
     TopMuon     getMuonm() const;
     TopMET      getMET() const;
     // methods to get the MC matched particles
-    const TtGenEvent &      getGenEvent() const;
+    const edm::RefProd<TtGenEvent> & getGenEvent() const;
     const reco::Candidate * getGenT() const;
     const reco::Candidate * getGenWp() const;
     const reco::Candidate * getGenB() const;
