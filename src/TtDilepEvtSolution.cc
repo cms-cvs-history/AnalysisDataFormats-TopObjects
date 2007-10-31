@@ -1,8 +1,9 @@
 //
-// $Id$
+// $Id: TtDilepEvtSolution.cc,v 1.12 2007/10/30 09:59:07 delaer Exp $
 //
 
 #include "AnalysisDataFormats/TopObjects/interface/TtDilepEvtSolution.h"
+#include "PhysicsTools/Utilities/interface/DeltaR.h"
 
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
 
@@ -12,6 +13,8 @@ TtDilepEvtSolution::TtDilepEvtSolution() {
   wpDecay_ = "NotDefined";
   wmDecay_ = "NotDefined";
   bestSol_ = false;
+  topmass_ = 0.;
+  weightmax_ = 0.;
 }
 
 
@@ -45,7 +48,6 @@ const reco::Candidate * TtDilepEvtSolution::getGenBbar() const { if (!theGenEvt_
 const reco::Candidate * TtDilepEvtSolution::getGenLepm() const { if (!theGenEvt_) return 0; else return theGenEvt_->lepton(); }
 const reco::Candidate * TtDilepEvtSolution::getGenNbar() const { if (!theGenEvt_) return 0; else return theGenEvt_->neutrinoBar(); }
 
-
 // methods to explicitly get reconstructed and calibrated objects 
 TopJetType TtDilepEvtSolution::getRecJetB() const    { return this->getJetB().getRecJet(); }
 TopJet     TtDilepEvtSolution::getCalJetB() const    { return this->getJetB(); }
@@ -56,7 +58,7 @@ TopJet     TtDilepEvtSolution::getCalJetBbar() const { return this->getJetBbar()
 // method to set the generated event
 void TtDilepEvtSolution::setGenEvt(const edm::Handle<TtGenEvent> & aGenEvt) {
   if( !aGenEvt->isFullLeptonic() ) {
-    edm::LogWarning( "TtGenEventNotFilled" ) << "genEvt is not di-leptonic; TtGenEvent is not filled";
+    edm::LogInfo( "TtGenEventNotFilled" ) << "genEvt is not di-leptonic; TtGenEvent is not filled";
     return;
   }
   theGenEvt_ = edm::RefProd<TtGenEvent>(aGenEvt);
@@ -74,6 +76,15 @@ void TtDilepEvtSolution::setElectronp(const edm::Handle<std::vector<TopElectron>
 void TtDilepEvtSolution::setElectronm(const edm::Handle<std::vector<TopElectron> > & eh, int i) { elecm_ = edm::Ref<std::vector<TopElectron> >(eh, i); wmDecay_ = "electron"; }
 void TtDilepEvtSolution::setMET(const edm::Handle<std::vector<TopMET> > & nh, int i)            { met_ = edm::Ref<std::vector<TopMET> >(nh, i); }
 
+// the residual (for matched events)
+double TtDilepEvtSolution::getResidual() const
+{
+  double distance = 0.;
+  if(!getGenB() || !getGenBbar()) return distance;
+  distance += DeltaR<reco::Particle>()(getCalJetB(),*getGenB());
+  distance += DeltaR<reco::Particle>()(getCalJetBbar(),*getGenBbar());
+  return distance;
+}
 
 // miscellaneous methods
 void TtDilepEvtSolution::setBestSol(bool bs)       { bestSol_ = bs; }
