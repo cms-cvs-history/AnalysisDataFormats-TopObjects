@@ -1,5 +1,5 @@
 //
-// $Id: StGenEvent.cc,v 1.2.2.1 2007/08/02 16:28:33 giamman Exp $
+// $Id: StGenEvent.cc,v 1.2.2.3 2007/11/01 01:24:45 lowette Exp $
 //
 
 #include "FWCore/Utilities/interface/EDMException.h"
@@ -11,7 +11,7 @@ StGenEvent::StGenEvent()
 {
 }
 
-StGenEvent::StGenEvent(reco::CandidateRefProd & parts, std::vector<const reco::Candidate*> inits)
+StGenEvent::StGenEvent(reco::CandidateRefProd & parts, reco::CandidateRefProd & inits)
 {
   parts_ = parts;
   initPartons_= inits;
