@@ -11,7 +11,7 @@ class StGenEvent: public TopGenEvent {
  public:
   
   StGenEvent();
-  StGenEvent(reco::CandidateRefProd&, std::vector<const reco::Candidate*>);
+  StGenEvent(reco::CandidateRefProd&, reco::CandidateRefProd&);
   virtual ~StGenEvent();
 
   int numberOfLeptons() const;
