@@ -1,5 +1,5 @@
 //
-// $Id$
+// $Id: TtDilepEvtSolution.cc,v 1.6.4.1 2007/10/24 09:21:18 lowette Exp $
 //
 
 #include "AnalysisDataFormats/TopObjects/interface/TtDilepEvtSolution.h"
@@ -9,6 +9,7 @@
 
 /// constructor
 TtDilepEvtSolution::TtDilepEvtSolution() {
+  jetCorrScheme_ = 0;
   wpDecay_ = "NotDefined";
   wmDecay_ = "NotDefined";
   bestSol_ = false;
@@ -21,8 +22,16 @@ TtDilepEvtSolution::~TtDilepEvtSolution() {
 
 
 // members to get original TopObjects 
-TopJet      TtDilepEvtSolution::getJetB() const      { return *jetB_; }
-TopJet      TtDilepEvtSolution::getJetBbar() const   { return *jetBbar_; }
+TopJet      TtDilepEvtSolution::getJetB() const      {
+  if (jetCorrScheme_ == 1) return jetB_->getMCFlavCorrJet(); // calibrate jets according to MC truth
+  else if (jetCorrScheme_ == 2) return jetB_->getBCorrJet();
+  else return *jetB_;
+}
+TopJet      TtDilepEvtSolution::getJetBbar() const   {
+  if (jetCorrScheme_ == 1) return jetBbar_->getMCFlavCorrJet(); // calibrate jets according to MC truth
+  else if (jetCorrScheme_ == 2) return jetBbar_->getBCorrJet();
+  else return *jetBbar_;
+}
 TopElectron TtDilepEvtSolution::getElectronp() const { return *elecp_; }
 TopElectron TtDilepEvtSolution::getElectronm() const { return *elecm_; }
 TopMuon     TtDilepEvtSolution::getMuonp() const     { return *muonp_; }
@@ -63,6 +72,9 @@ void TtDilepEvtSolution::setGenEvt(const edm::Handle<TtGenEvent> & aGenEvt) {
 
 
 // methods to set the basic TopObjects
+void TtDilepEvtSolution::setJetCorrectionScheme(int jetCorrScheme) {
+  jetCorrScheme_ = jetCorrScheme;
+}
 void TtDilepEvtSolution::setB(const edm::Handle<std::vector<TopJet> > & jh, int i)              { jetB_ = edm::Ref<std::vector<TopJet> >(jh, i); }
 void TtDilepEvtSolution::setBbar(const edm::Handle<std::vector<TopJet> > & jh, int i)           { jetBbar_ = edm::Ref<std::vector<TopJet> >(jh, i); }
 void TtDilepEvtSolution::setMuonp(const edm::Handle<std::vector<TopMuon> > & mh, int i)         { muonp_ = edm::Ref<std::vector<TopMuon> >(mh, i); wpDecay_ = "muon"; }
