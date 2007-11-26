@@ -1,5 +1,5 @@
 //
-// $Id: TtDilepEvtSolution.h,v 1.6.2.1 2007/10/01 20:16:34 lowette Exp $
+// $Id$
 //
 
 #ifndef TopObjects_TtDilepEvtSolution_h
@@ -68,6 +68,7 @@ class TtDilepEvtSolution {
     // method to set the generated event
     void setGenEvt(const edm::Handle<TtGenEvent> & aGenEvt);
     // methods to set the basic TopObjects
+    void setJetCorrectionScheme(int jetCorrScheme);
     void setB(const edm::Handle<std::vector<TopJet> > & jh, int i);
     void setBbar(const edm::Handle<std::vector<TopJet> > & jh, int i);
     void setMuonp(const edm::Handle<std::vector<TopMuon> > & mh, int i);
@@ -89,6 +90,7 @@ class TtDilepEvtSolution {
     edm::Ref<std::vector<TopJet> >      jetB_, jetBbar_;
     edm::Ref<std::vector<TopMET> >      met_;
     // miscellaneous
+    int jetCorrScheme_;
     std::string wpDecay_;
     std::string wmDecay_;      
     bool bestSol_;
