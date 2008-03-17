@@ -1,5 +1,5 @@
 //
-// $Id: TopElectron.cc,v 1.2 2007/10/17 15:46:59 lowette Exp $
+// $Id: TopElectron.cc,v 1.3 2007/12/14 13:54:26 jlamb Exp $
 //
 
 #include "AnalysisDataFormats/TopObjects/interface/TopElectron.h"
@@ -33,13 +33,56 @@ double TopElectron::getCaloIso() const {
 
 
 /// return the lepton ID discriminator
-double TopElectron::getLeptonID() const {
-  return leptonID_;
+double TopElectron::getLeptonID(int idx) const {
+  if(Robust<=idx && idx<Tight){
+    return leptonIDsCut_[idx];
+  }
+  else{ //leptonID idx is outof scope
+    return -1.;
+  }
 }
 
-/// return the "robust cuts-based" electron id
-double TopElectron::getElectronIDRobust() const {
-  return electronIDRobust_;
+double TopElectron::getLeptonIDTDR(int idx) const {
+  if(Robust<=idx && idx<Tight){
+    return leptonIDsTDR_[idx];
+  }
+  else{ //leptonID idx is outof scope
+    return -1.;
+  }
+}
+
+/// return the cut based electron ids
+double TopElectron::getLeptonID() const {
+  return getLeptonID( Tight );
+}
+
+double TopElectron::getLeptonIDCutRobust() const {
+  return getLeptonID( Robust );
+}
+
+double TopElectron::getLeptonIDCutMedium() const {
+  return getLeptonID( Medium );
+}
+
+double TopElectron::getLeptonIDCutTight() const {
+  return getLeptonID( Tight  );
+}
+
+/// return the tdr based electron ids
+double TopElectron::getLeptonIDTDR() const {
+  return getLeptonIDTDR( Tight );
+}
+
+double TopElectron::getLeptonIDTDRRobust() const {
+  return getLeptonIDTDR( Robust );
+}
+
+double TopElectron::getLeptonIDTDRMedium() const {
+  return getLeptonIDTDR( Medium );
+}
+
+double TopElectron::getLeptonIDTDRTight() const {
+  return getLeptonIDTDR( Tight  );
 }
 
 /// return tracker isolation as calc. by Egamma POG producer
@@ -74,14 +117,48 @@ void TopElectron::setCaloIso(double caloIso) {
 }
 
 
-/// method to set the lepton ID discriminator
-void TopElectron::setLeptonID(double id) {
-  leptonID_ = id;
+/// methods to set the lepton ID discriminator
+void TopElectron::setLeptonID(std::vector<double> ids) {
+  if(ids.size()==maxElecID){
+    leptonIDsCut_ = ids;
+  }
 }
 
-/// method to set the "robust cuts-based" electron id
-void TopElectron::setElectronIDRobust(double id) {
-  electronIDRobust_ = id;
+void TopElectron::setLeptonIDCutRobust(double id) {
+  if(leptonIDsCut_.capacity()<maxElecID) leptonIDsCut_.reserve(maxElecID);
+  leptonIDsCut_[Robust]=id;
+}
+
+void TopElectron::setLeptonIDCutMedium(double id) {
+  if(leptonIDsCut_.capacity()<maxElecID) leptonIDsCut_.reserve(maxElecID);
+  leptonIDsCut_[Medium]=id;
+}
+
+void TopElectron::setLeptonIDCutTight (double id) {
+  if(leptonIDsCut_.capacity()<maxElecID) leptonIDsCut_.reserve(maxElecID);
+  leptonIDsCut_[Tight ]=id;
+}
+
+/// method to set the tdr style electron id
+void TopElectron::setLeptonIDTDR(std::vector<double> ids) {
+  if(ids.size()==maxElecID){
+    leptonIDsTDR_ = ids;
+  }
+}
+
+void TopElectron::setLeptonIDTDRRobust(double id) {
+  if(leptonIDsTDR_.capacity()<maxElecID) leptonIDsTDR_.reserve(maxElecID);
+  leptonIDsTDR_[Robust]=id;
+}
+
+void TopElectron::setLeptonIDTDRMedium(double id) {
+  if(leptonIDsTDR_.capacity()<maxElecID) leptonIDsTDR_.reserve(maxElecID);
+  leptonIDsCut_[Medium]=id;
+}
+
+void TopElectron::setLeptonIDTDRTight (double id) {
+  if(leptonIDsTDR_.capacity()<maxElecID) leptonIDsTDR_.reserve(maxElecID);
+  leptonIDsCut_[Tight ]=id;
 }
 
 /// methods to set the isolation from the Egamma POG's producer
