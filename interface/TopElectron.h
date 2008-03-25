@@ -1,5 +1,5 @@
 //
-// $Id: TopElectron.h,v 1.5 2008/01/25 13:32:13 vadler Exp $
+// $Id: TopElectron.h,v 1.5.2.1 2008/03/17 15:24:00 rwolf Exp $
 //
 
 #ifndef TopObjects_TopElectron_h
@@ -13,7 +13,7 @@
    store and retrieve the high-level additional information.
 
   \author   Steven Lowette
-  \version  $Id: TopElectron.h,v 1.5 2008/01/25 13:32:13 vadler Exp $
+  \version  $Id: TopElectron.h,v 1.5.2.1 2008/03/17 15:24:00 rwolf Exp $
 */
 
 #include "DataFormats/EgammaCandidates/interface/PixelMatchGsfElectron.h"
@@ -34,7 +34,7 @@ class TopElectron : public TopLepton<TopElectronType> {
 
   enum elecID {
     Robust = 0,
-    Medium = 1,
+    Loose  = 1,
     Tight  = 2
   };
   
@@ -47,13 +47,13 @@ class TopElectron : public TopLepton<TopElectronType> {
   double getLeptonID() const;
   double getLeptonID(int) const;
   double getLeptonIDCutRobust() const;
-  double getLeptonIDCutMedium() const;
-  double getLeptonIDCutTight()  const;
+  double getLeptonIDCutLoose() const;
+  double getLeptonIDCutTight() const;
   double getLeptonIDTDR() const;
   double getLeptonIDTDR(int) const;
-  double getLeptonIDTDRRobust() const;
+  double getLeptonIDTDRLoose() const;
   double getLeptonIDTDRMedium() const;
-  double getLeptonIDTDRTight()  const;
+  double getLeptonIDTDRTight() const;
   double getEgammaTkIso() const;
   int getEgammaTkNumIso() const;
   double getEgammaEcalIso() const;
@@ -66,11 +66,11 @@ class TopElectron : public TopLepton<TopElectronType> {
   void setCaloIso(double caloIso);
   void setLeptonID(std::vector<double> ids);
   void setLeptonIDCutRobust(double id);
-  void setLeptonIDCutMedium(double id);
+  void setLeptonIDCutLoose (double id);
   void setLeptonIDCutTight (double id);
   void setLeptonIDTDR(std::vector<double> ids);
-  void setLeptonIDTDRRobust(double id);
-  void setLeptonIDTDRMedium(double id);
+  void setLeptonIDTDRLoose(double id);
+  void setLeptonIDTDRMedium (double id);
   void setLeptonIDTDRTight (double id);
   void setEgammaTkIso(double tkIso);
   void setEgammaTkNumIso(int tkNumIso);
