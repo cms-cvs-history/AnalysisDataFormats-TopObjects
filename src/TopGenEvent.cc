@@ -22,6 +22,25 @@ TopGenEvent::candidate(int id) const
   return cand;
 }
 
+void
+TopGenEvent::dumpEventContent() const 
+{
+  using std::cout;
+  using std::endl;
+
+  cout << endl;
+  cout << "--------------------------------------" << endl;
+  cout << "- Dump TopGenEvent Content           -" << endl;
+  cout << "--------------------------------------" << endl;
+  for (reco::GenParticleCollection::const_iterator part = parts_->begin(); 
+       part<parts_->end(); ++part) {
+    cout << "pdgId: "  << part->pdgId()     << " " 
+	 << "mass: "   << part->p4().mass() << " "
+	 << "energy: " << part->energy()    << " " 
+	 << "pt: "     << part->pt() << endl; 
+  }
+}
+
 int
 TopGenEvent::numberOfLeptons() const
 {

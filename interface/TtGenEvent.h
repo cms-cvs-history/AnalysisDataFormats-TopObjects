@@ -10,9 +10,10 @@ class TtGenEvent: public TopGenEvent {
   TtGenEvent(reco::GenParticleRefProd&, reco::GenParticleRefProd&);
   virtual ~TtGenEvent();
 
-  bool isFullHadronic() const { return (numberOfLeptons()==0);}
-  bool isSemiLeptonic() const { return (numberOfLeptons()==1);}
-  bool isFullLeptonic() const { return (numberOfLeptons()==2);}
+  bool isTtBar() const {return (top() && topBar());}
+  bool isFullHadronic() const { return (isTtBar() && numberOfLeptons()==0);}
+  bool isSemiLeptonic() const { return (isTtBar() && numberOfLeptons()==1);}
+  bool isFullLeptonic() const { return (isTtBar() && numberOfLeptons()==2);}
   
   //semi-leptonic getters
   const reco::GenParticle* leptonicDecayW() const;
