@@ -1,5 +1,5 @@
 //
-// $Id: TopElectron.cc,v 1.3.2.1 2008/03/17 15:26:36 rwolf Exp $
+// $Id: TopElectron.cc,v 1.3.2.2 2008/03/25 21:37:26 rwolf Exp $
 //
 
 #include "AnalysisDataFormats/TopObjects/interface/TopElectron.h"
@@ -34,7 +34,7 @@ double TopElectron::getCaloIso() const {
 
 /// return the lepton ID discriminator
 double TopElectron::getLeptonID(int idx) const {
-  if(Robust<=idx && idx<Tight){
+  if(Robust<=idx && idx<=Tight){
     return leptonIDsCut_[idx];
   }
   else{ //leptonID idx is outof scope
@@ -43,7 +43,7 @@ double TopElectron::getLeptonID(int idx) const {
 }
 
 double TopElectron::getLeptonIDTDR(int idx) const {
-  if(Robust<=idx && idx<Tight){
+  if(Robust<=idx && idx<=Tight){
     return leptonIDsTDR_[idx];
   }
   else{ //leptonID idx is outof scope
