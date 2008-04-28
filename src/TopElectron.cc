@@ -1,5 +1,5 @@
 //
-// $Id: TopElectron.cc,v 1.3.2.2 2008/03/25 21:37:26 rwolf Exp $
+// $Id: TopElectron.cc,v 1.3.2.3 2008/04/24 08:23:45 rwolf Exp $
 //
 
 #include "AnalysisDataFormats/TopObjects/interface/TopElectron.h"
@@ -153,12 +153,12 @@ void TopElectron::setLeptonIDTDRLoose(double id) {
 
 void TopElectron::setLeptonIDTDRMedium(double id) {
   if(leptonIDsTDR_.capacity()<maxElecID) leptonIDsTDR_.reserve(maxElecID);
-  leptonIDsCut_[Loose]=id;
+  leptonIDsTDR_[Loose]=id;
 }
 
 void TopElectron::setLeptonIDTDRTight (double id) {
   if(leptonIDsTDR_.capacity()<maxElecID) leptonIDsTDR_.reserve(maxElecID);
-  leptonIDsCut_[Tight ]=id;
+  leptonIDsTDR_[Tight ]=id;
 }
 
 /// methods to set the isolation from the Egamma POG's producer
