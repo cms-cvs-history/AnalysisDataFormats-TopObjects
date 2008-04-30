@@ -1,5 +1,5 @@
 //
-// $Id: TopElectron.cc,v 1.3.2.3 2008/04/24 08:23:45 rwolf Exp $
+// $Id: TopElectron.cc,v 1.3.2.4 2008/04/28 18:18:35 rwolf Exp $
 //
 
 #include "AnalysisDataFormats/TopObjects/interface/TopElectron.h"
@@ -125,17 +125,17 @@ void TopElectron::setLeptonID(std::vector<double> ids) {
 }
 
 void TopElectron::setLeptonIDCutRobust(double id) {
-  if(leptonIDsCut_.capacity()<maxElecID) leptonIDsCut_.reserve(maxElecID);
+  if(leptonIDsCut_.size()<maxElecID) leptonIDsCut_.resize(maxElecID);
   leptonIDsCut_[Robust]=id;
 }
 
 void TopElectron::setLeptonIDCutLoose(double id) {
-  if(leptonIDsCut_.capacity()<maxElecID) leptonIDsCut_.reserve(maxElecID);
+  if(leptonIDsCut_.size()<maxElecID) leptonIDsCut_.resize(maxElecID);
   leptonIDsCut_[Loose]=id;
 }
 
 void TopElectron::setLeptonIDCutTight (double id) {
-  if(leptonIDsCut_.capacity()<maxElecID) leptonIDsCut_.reserve(maxElecID);
+  if(leptonIDsCut_.size()<maxElecID) leptonIDsCut_.resize(maxElecID);
   leptonIDsCut_[Tight ]=id;
 }
 
@@ -147,17 +147,17 @@ void TopElectron::setLeptonIDTDR(std::vector<double> ids) {
 }
 
 void TopElectron::setLeptonIDTDRLoose(double id) {
-  if(leptonIDsTDR_.capacity()<maxElecID) leptonIDsTDR_.reserve(maxElecID);
+  if(leptonIDsTDR_.size()<maxElecID) leptonIDsTDR_.resize(maxElecID);
   leptonIDsTDR_[Robust]=id;
 }
 
 void TopElectron::setLeptonIDTDRMedium(double id) {
-  if(leptonIDsTDR_.capacity()<maxElecID) leptonIDsTDR_.reserve(maxElecID);
+  if(leptonIDsTDR_.size()<maxElecID) leptonIDsTDR_.resize(maxElecID);
   leptonIDsTDR_[Loose]=id;
 }
 
 void TopElectron::setLeptonIDTDRTight (double id) {
-  if(leptonIDsTDR_.capacity()<maxElecID) leptonIDsTDR_.reserve(maxElecID);
+  if(leptonIDsTDR_.size()<maxElecID) leptonIDsTDR_.resize(maxElecID);
   leptonIDsTDR_[Tight ]=id;
 }
 
