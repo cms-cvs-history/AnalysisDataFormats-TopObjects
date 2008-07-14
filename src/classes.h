@@ -31,6 +31,7 @@ namespace {
     std::vector<std::pair<std::string, reco::JetTagRef> > v_p_str_jtr;
     std::pair<std::string, reco::JetTagRef> p_str_jtr;
     std::map<TtSemiEvent::HypoKey, reco::NamedCompositeCandidate> m_key_hyp;
+    std::map<TtSemiEvent::HypoKey, std::vector<int> > m_key_vint;
 
     TtGenEvent ttgen;
     StGenEvent stgen;
