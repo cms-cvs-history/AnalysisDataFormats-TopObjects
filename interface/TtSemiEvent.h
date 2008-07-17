@@ -53,36 +53,37 @@ class TtSemiEvent {
   // access objects according to corresponding EventHypothesis
   const reco::NamedCompositeCandidate& eventHypo(const HypoKey& key) const { return evtHyp_.find(key)->second; };
   // warning: since access by string to the daughters of a daughter is not yet possible, for the time being
-  //          daughters have to be added always in the same order to their mothers before adding these to the
-  //          event hypothesis in order to have the correct objects returned by the following functions
+  //          daughters have to be added always in the same order to their mothers before adding these to
+  //          the event hypothesis in order to have the correct objects returned by the following functions
   // (for top quarks: first W, then b quark; for the hadr. decaying W: first quark, then anti-quark;
   //                                         for the lept. decaying W: first lepton, then neutrino)
-  const reco::Candidate* hadronicTop(const HypoKey& key) const { return eventHypo(key).   daughter(TtSemiDaughter::HadTop); };
-  const reco::Candidate* hadronicB  (const HypoKey& key) const { return hadronicTop(key)->daughter(1);                      };
-  const reco::Candidate* hadronicW  (const HypoKey& key) const { return hadronicTop(key)->daughter(0);                      };
-  const reco::Candidate* lightQuarkP(const HypoKey& key) const { return hadronicW(key)->  daughter(1);                      };
-  const reco::Candidate* lightQuarkQ(const HypoKey& key) const { return hadronicW(key)->  daughter(0);                      };
-  const reco::Candidate* leptonicTop(const HypoKey& key) const { return eventHypo(key).   daughter(TtSemiDaughter::LepTop); };
-  const reco::Candidate* leptonicB  (const HypoKey& key) const { return leptonicTop(key)->daughter(1);                      };
-  const reco::Candidate* leptonicW  (const HypoKey& key) const { return leptonicTop(key)->daughter(0);                      };
-  const reco::Candidate* neutrino   (const HypoKey& key) const { return leptonicW(key)->  daughter(1);                      };
-  const reco::Candidate* lepton     (const HypoKey& key) const { return leptonicW(key)->  daughter(0);                      };
+  const reco::Candidate* hadronicTop(const HypoKey& key) const { return !isHypoValid(key) ? 0 : eventHypo(key).   daughter(TtSemiDaughter::HadTop); };
+  const reco::Candidate* hadronicB  (const HypoKey& key) const { return !isHypoValid(key) ? 0 : hadronicTop(key)->daughter(1);                      };
+  const reco::Candidate* hadronicW  (const HypoKey& key) const { return !isHypoValid(key) ? 0 : hadronicTop(key)->daughter(0);                      };
+  const reco::Candidate* lightQuarkP(const HypoKey& key) const { return !isHypoValid(key) ? 0 : hadronicW(key)->  daughter(1);                      };
+  const reco::Candidate* lightQuarkQ(const HypoKey& key) const { return !isHypoValid(key) ? 0 : hadronicW(key)->  daughter(0);                      };
+  const reco::Candidate* leptonicTop(const HypoKey& key) const { return !isHypoValid(key) ? 0 : eventHypo(key).   daughter(TtSemiDaughter::LepTop); };
+  const reco::Candidate* leptonicB  (const HypoKey& key) const { return !isHypoValid(key) ? 0 : leptonicTop(key)->daughter(1);                      };
+  const reco::Candidate* leptonicW  (const HypoKey& key) const { return !isHypoValid(key) ? 0 : leptonicTop(key)->daughter(0);                      };
+  const reco::Candidate* neutrino   (const HypoKey& key) const { return !isHypoValid(key) ? 0 : leptonicW(key)->  daughter(1);                      };
+  const reco::Candidate* lepton     (const HypoKey& key) const { return !isHypoValid(key) ? 0 : leptonicW(key)->  daughter(0);                      };
 
   // access the matched gen particles
   const edm::RefProd<TtGenEvent> & genEvent() const { return genEvt_; };
-  const reco::GenParticle* genHadronicTop() const { return (!genEvt_ ? 0 : this->genEvent()->hadronicDecayTop()); };
-  const reco::GenParticle* genHadronicW()   const { return (!genEvt_ ? 0 : this->genEvent()->hadronicDecayW()); };
-  const reco::GenParticle* genHadronicB()   const { return (!genEvt_ ? 0 : this->genEvent()->hadronicDecayB()); };
-  const reco::GenParticle* genHadronicP()   const { return (!genEvt_ ? 0 : this->genEvent()->hadronicDecayQuarkBar()); };
-  const reco::GenParticle* genHadronicQ()   const { return (!genEvt_ ? 0 : this->genEvent()->hadronicDecayQuark()); };
-  const reco::GenParticle* genLeptonicTop() const { return (!genEvt_ ? 0 : this->genEvent()->leptonicDecayTop()); };
-  const reco::GenParticle* genLeptonicW()   const { return (!genEvt_ ? 0 : this->genEvent()->leptonicDecayW()); };
-  const reco::GenParticle* genLeptonicB()   const { return (!genEvt_ ? 0 : this->genEvent()->leptonicDecayB()); };
-  const reco::GenParticle* genLepton()      const { return (!genEvt_ ? 0 : this->genEvent()->singleLepton());   };
-  const reco::GenParticle* genNeutrino()    const { return (!genEvt_ ? 0 : this->genEvent()->singleNeutrino()); };
+  const reco::GenParticle* genHadronicTop() const { return !genEvt_ ? 0 : this->genEvent()->hadronicDecayTop(); };
+  const reco::GenParticle* genHadronicW()   const { return !genEvt_ ? 0 : this->genEvent()->hadronicDecayW(); };
+  const reco::GenParticle* genHadronicB()   const { return !genEvt_ ? 0 : this->genEvent()->hadronicDecayB(); };
+  const reco::GenParticle* genHadronicP()   const { return !genEvt_ ? 0 : this->genEvent()->hadronicDecayQuarkBar(); };
+  const reco::GenParticle* genHadronicQ()   const { return !genEvt_ ? 0 : this->genEvent()->hadronicDecayQuark(); };
+  const reco::GenParticle* genLeptonicTop() const { return !genEvt_ ? 0 : this->genEvent()->leptonicDecayTop(); };
+  const reco::GenParticle* genLeptonicW()   const { return !genEvt_ ? 0 : this->genEvent()->leptonicDecayW(); };
+  const reco::GenParticle* genLeptonicB()   const { return !genEvt_ ? 0 : this->genEvent()->leptonicDecayB(); };
+  const reco::GenParticle* genLepton()      const { return !genEvt_ ? 0 : this->genEvent()->singleLepton();   };
+  const reco::GenParticle* genNeutrino()    const { return !genEvt_ ? 0 : this->genEvent()->singleNeutrino(); };
   
   // access meta information
-  bool isHypoAvailable(const HypoKey& key) const { return (evtHyp_.find(key)!=evtHyp_.end());};
+  bool isHypoValid(const HypoKey& key) const { return isHypoAvailable(key) ? eventHypo(key).roles().empty() : false;}
+  bool isHypoAvailable(const HypoKey& key) const { return evtHyp_.find(key)!=evtHyp_.end();};
   unsigned int numberOfAvailableHypos() const { return evtHyp_.size();};
   std::vector<int> jetMatch(const HypoKey& key) const { return jetMatch_.find(key)->second; };
   double genMatchSumPt() const { return genMatchSumPt_; };
