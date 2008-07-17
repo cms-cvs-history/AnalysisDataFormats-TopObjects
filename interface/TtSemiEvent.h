@@ -82,7 +82,7 @@ class TtSemiEvent {
   const reco::GenParticle* genNeutrino()    const { return !genEvt_ ? 0 : this->genEvent()->singleNeutrino(); };
   
   // access meta information
-  bool isHypoValid(const HypoKey& key) const { return isHypoAvailable(key) ? eventHypo(key).roles().empty() : false;}
+  bool isHypoValid(const HypoKey& key) const { return isHypoAvailable(key) ? !eventHypo(key).roles().empty() : false;}
   bool isHypoAvailable(const HypoKey& key) const { return evtHyp_.find(key)!=evtHyp_.end();};
   unsigned int numberOfAvailableHypos() const { return evtHyp_.size();};
   std::vector<int> jetMatch(const HypoKey& key) const { return jetMatch_.find(key)->second; };
