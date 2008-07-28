@@ -16,8 +16,6 @@
   <class name="std::pair<unsigned int, double>" />
   <class name="std::vector<std::pair<std::string, reco::JetTagRef> >" />
   <class name="std::pair<std::string, reco::JetTagRef>" />
-  <class name="std::map<TtSemiEvent::HypoKey, reco::NamedCompositeCandidate>" />
-  <class name="std::map<TtSemiEvent::HypoKey, std::vector<int> >" />
 
   <class name="TtGenEvent" />
   <class name="StGenEvent" />
@@ -30,17 +28,21 @@
   <class name="edm::RefProd<TopGenEvent>" />
 
   <class name="TtSemiEvent" />
+  <class name="edm::Wrapper<TtSemiEvent>" />
+  <class name="edm::RefProd<TtSemiEvent>" />
+  <class name="edm::Wrapper<std::basic_string<char> >" />
+  <class name="edm::Wrapper<reco::NamedCompositeCandidate>" />
+  <class name="std::map<TtSemiEvent::HypoKey, std::vector<int> >" />
+  <class name="std::map<TtSemiEvent::HypoKey, reco::NamedCompositeCandidate>" />
+
   <class name="TtDilepEvtSolution" />
   <class name="TtSemiEvtSolution" />
-  <class name="TtSemiMassSolution" />
   <class name="TtHadEvtSolution" />
   <class name="StEvtSolution" />
-  <class name="std::vector<TtSemiEvent>" />
   <class name="std::vector<TtDilepEvtSolution>" />
   <class name="std::vector<TtSemiEvtSolution>" />
   <class name="std::vector<TtHadEvtSolution>" />
   <class name="std::vector<StEvtSolution>" />
-  <class name="edm::Wrapper<std::vector<TtSemiEvent> >" />
   <class name="edm::Wrapper<std::vector<TtDilepEvtSolution> >" />
   <class name="edm::Wrapper<std::vector<TtSemiEvtSolution> >" />
   <class name="edm::Wrapper<std::vector<TtHadEvtSolution> >" />

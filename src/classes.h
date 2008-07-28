@@ -30,8 +30,6 @@ namespace {
     std::pair<unsigned int, double> p_uint_dbl;
     std::vector<std::pair<std::string, reco::JetTagRef> > v_p_str_jtr;
     std::pair<std::string, reco::JetTagRef> p_str_jtr;
-    std::map<TtSemiEvent::HypoKey, reco::NamedCompositeCandidate> m_key_hyp;
-    std::map<TtSemiEvent::HypoKey, std::vector<int> > m_key_vint;
 
     TtGenEvent ttgen;
     StGenEvent stgen;
@@ -44,17 +42,21 @@ namespace {
     edm::RefProd<TopGenEvent> rp_topgen;
 
     TtSemiEvent ttsemievt;
+    edm::Wrapper<TtSemiEvent> w_ttsemievt;
+    edm::RefProd<TtSemiEvent> rp_ttsemievt;
+    edm::Wrapper<std::basic_string<char> > w_string;
+    edm::Wrapper<reco::NamedCompositeCandidate> w_tthypo;
+    std::map<TtSemiEvent::HypoKey, std::vector<int> > m_key_vint;
+    std::map<TtSemiEvent::HypoKey, reco::NamedCompositeCandidate> m_key_hyp;
+
     TtDilepEvtSolution ttdilep;
     TtSemiEvtSolution ttsemi;
-    TtSemiMassSolution ttsemimass;
     TtHadEvtSolution tthad;
     StEvtSolution st;
-    std::vector<TtSemiEvent> v_ttsemievt;
     std::vector<TtDilepEvtSolution> v_ttdilep;
     std::vector<TtSemiEvtSolution> v_ttsemi;
     std::vector<TtHadEvtSolution> v_tthad;
     std::vector<StEvtSolution> v_st;
-    edm::Wrapper<std::vector<TtSemiEvent> > w_v_ttsemievt;
     edm::Wrapper<std::vector<TtDilepEvtSolution> > w_v_ttdilep;
     edm::Wrapper<std::vector<TtSemiEvtSolution> > w_v_ttsemi;
     edm::Wrapper<std::vector<TtHadEvtSolution> > w_v_tthad;
