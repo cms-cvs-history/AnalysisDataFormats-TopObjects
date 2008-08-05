@@ -34,7 +34,7 @@ class TtSemiEvent {
   enum Decay {kNone, kElec, kMuon, kTau};
 
   // supported EventHypotheses
-  enum HypoKey {kWMassMaxSumPt, kMaxSumPtWMass, kKinFit, kGenMatch, kMVADisc};
+  enum HypoKey {kGeom, kWMassMaxSumPt, kMaxSumPtWMass, kGenMatch, kMVADisc, kKinFit};
 
   // typdefs for hierarchical EventHypothesis
   typedef reco::CandidateWithRef<edm::Ref<std::vector<pat::Jet> > > JetCandRef;
