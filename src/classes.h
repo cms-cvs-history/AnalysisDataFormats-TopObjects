@@ -41,13 +41,13 @@ namespace {
     edm::RefProd<StGenEvent> rp_stgen;
     edm::RefProd<TopGenEvent> rp_topgen;
 
-    TtSemiEvent ttsemievt;
-    edm::Wrapper<TtSemiEvent> w_ttsemievt;
-    edm::RefProd<TtSemiEvent> rp_ttsemievt;
+    TtSemiLeptonicEvent ttsemievt;
+    edm::Wrapper<TtSemiLeptonicEvent> w_ttsemievt;
+    edm::RefProd<TtSemiLeptonicEvent> rp_ttsemievt;
     edm::Wrapper<std::basic_string<char> > w_string;
     edm::Wrapper<reco::NamedCompositeCandidate> w_tthypo;
-    std::map<TtSemiEvent::HypoKey, std::vector<int> > m_key_vint;
-    std::map<TtSemiEvent::HypoKey, reco::NamedCompositeCandidate> m_key_hyp;
+    std::map<TtSemiLeptonicEvent::HypoKey, std::vector<int> > m_key_vint;
+    std::map<TtSemiLeptonicEvent::HypoKey, reco::NamedCompositeCandidate> m_key_hyp;
 
     TtDilepEvtSolution ttdilep;
     TtSemiEvtSolution ttsemi;
