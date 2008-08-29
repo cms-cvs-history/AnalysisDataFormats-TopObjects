@@ -1,5 +1,5 @@
 //
-// $Id: TtSemiEvtSolution.h,v 1.24 2008/02/15 12:10:47 rwolf Exp $
+// $Id: TtSemiEvtSolution.h,v 1.25 2008/04/24 19:52:11 rwolf Exp $
 //
 
 #ifndef TopObjects_TtSemiEvtSolution_h
@@ -32,7 +32,7 @@
 class TtSemiEvtSolution {
   
   friend class TtSemiEvtSolutionMaker;
-  friend class TtSemiKinFitter;
+  friend class TtSemiLepKinFitter;
   friend class TtSemiLRSignalSelObservables;
   friend class TtSemiLRSignalSelCalc;
   friend class TtSemiLRJetCombObservables;
