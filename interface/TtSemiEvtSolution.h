@@ -1,5 +1,5 @@
 //
-// $Id: TtSemiEvtSolution.h,v 1.26 2008/07/03 21:26:38 srappocc Exp $
+// $Id: TtSemiEvtSolution.h,v 1.27 2008/08/28 00:38:55 rwolf Exp $
 //
 
 #ifndef TopObjects_TtSemiEvtSolution_h
@@ -70,33 +70,6 @@ class TtSemiEvtSolution {
   const reco::GenParticle * getGenLepl() const { if (!theGenEvt_) return 0; else return this->getGenEvent()->singleLepton(); };
   const reco::GenParticle * getGenLepn() const { if (!theGenEvt_) return 0; else return this->getGenEvent()->singleNeutrino(); };
 
-  //-------------------------------------------
-  // get (un-)/calibrated reco objects
-  //-------------------------------------------
-  reco::Particle getRecHadt() const;
-  reco::Particle getRecHadW() const;       
-  pat::JetType getRecHadb() const { return this->getHadb().recJet(); };
-  pat::JetType getRecHadp() const { return this->getHadp().recJet(); };
-  pat::JetType getRecHadq() const { return this->getHadq().recJet(); };
-  reco::Particle getRecLept() const;             
-  reco::Particle getRecLepW() const;  
-  pat::JetType getRecLepb() const { return this->getLepb().recJet(); }; 
-  pat::Muon getRecLepm() const { return this->getMuon(); };
-  pat::Electron getRecLepe() const { return this->getElectron(); };
-  pat::MET getRecLepn() const { return this->getNeutrino(); };  
-  // FIXME: Why these functions??? Not needed!
-  // methods to get calibrated objects 
-  reco::Particle getCalHadt() const;
-  reco::Particle getCalHadW() const;
-  pat::Jet getCalHadb() const { return this->getHadb(); };
-  pat::Jet getCalHadp() const { return this->getHadp(); };
-  pat::Jet getCalHadq() const { return this->getHadq(); };
-  reco::Particle getCalLept() const;
-  reco::Particle getCalLepW() const;
-  pat::Jet getCalLepb() const { return this->getLepb(); };
-  pat::Muon getCalLepm() const { return this->getMuon(); };
-  pat::Electron getCalLepe() const { return this->getElectron(); };
-  pat::MET getCalLepn() const { return this->getNeutrino(); };
 
   //-------------------------------------------
   // get objects from kinematic fit

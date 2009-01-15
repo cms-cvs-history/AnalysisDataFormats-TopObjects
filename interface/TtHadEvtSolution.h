@@ -1,7 +1,7 @@
 #ifndef TopObjects_TtHadEvtSolution_h
 #define TopObjects_TtHadEvtSolution_h
 //
-// $Id: TtHadEvtSolution.h,v 1.7 2008/02/15 12:10:47 rwolf Exp $
+// $Id: TtHadEvtSolution.h,v 1.8 2008/08/28 00:38:55 rwolf Exp $
 // adapted TtSemiEvtSolution.h,v 1.14 2007/07/06 03:07:47 lowette Exp 
 // for fully hadronic channel
 
@@ -59,17 +59,6 @@ class TtHadEvtSolution {
   //-------------------------------------------
   // get (un-)/calibrated reco objects
   //-------------------------------------------
-  reco::Particle getRecHadt() const;
-  reco::Particle getRecHadtbar() const;
-  reco::Particle getRecHadW_plus() const;     
-  reco::Particle getRecHadW_minus() const;       
-  
-  pat::JetType getRecHadb() const { return this->getHadb().recJet(); };
-  pat::JetType getRecHadbbar() const { return this->getHadbbar().recJet(); };
-  pat::JetType getRecHadp() const { return this->getHadp().recJet(); };
-  pat::JetType getRecHadq() const { return this->getHadq().recJet(); };
-  pat::JetType getRecHadj() const { return this->getHadj().recJet(); };
-  pat::JetType getRecHadk() const { return this->getHadk().recJet(); };
   
   reco::Particle getCalHadt() const;
   reco::Particle getCalHadtbar() const;

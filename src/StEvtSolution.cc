@@ -1,5 +1,5 @@
 //
-// $Id: StEvtSolution.cc,v 1.9 2008/01/25 13:34:29 vadler Exp $
+// $Id: StEvtSolution.cc,v 1.10 2008/02/15 12:10:51 rwolf Exp $
 //
 
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
@@ -31,30 +31,12 @@ StEvtSolution::~StEvtSolution()
 //-------------------------------------------
 pat::Jet StEvtSolution::getBottom() const 
 {
-  if(jetCorrScheme_==1){
-    //jet calibrated according to MC truth
-    return bottom_->mcFlavCorrJet();
-  } 
-  else if(jetCorrScheme_==2){
-    return bottom_->bCorrJet();
-  }
-  else{
-    return *bottom_;
-  }
+  return *bottom_;
 }
 
 pat::Jet StEvtSolution::getLight() const 
 {
-  if(jetCorrScheme_==1){
-    //jet calibrated according to MC truth
-    return light_->mcFlavCorrJet();
-  }
-  else if(jetCorrScheme_==2){
-    return light_->udsCorrJet();
-  }
-  else{
-    return *light_;
-  }
+  return *light_;
 }
 
 reco::Particle StEvtSolution::getLepW() const 
@@ -116,17 +98,6 @@ const reco::GenParticle * StEvtSolution::getGenLept() const
   else return theGenEvt_->singleTop(); 
 }
 
-//-------------------------------------------
-// get uncalibrated reco objects
-//-------------------------------------------
-reco::Particle StEvtSolution::getRecLept() const 
-{
-  // FIXME: the charge from the genevent
-  reco::Particle p;
-  if(this->getDecay() == "muon") p=reco::Particle(0, this->getMuon().p4()+this->getNeutrino().p4()+this->getRecBottom().p4(), math::XYZPoint());
-  if(this->getDecay() == "electron") p=reco::Particle(0, this->getElectron().p4()+this->getNeutrino().p4()+this->getRecBottom().p4(), math::XYZPoint());
-  return p;
-}
 
 //-------------------------------------------
 // get objects from kinematic fit

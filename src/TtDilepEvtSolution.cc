@@ -1,5 +1,5 @@
 //
-// $Id: TtDilepEvtSolution.cc,v 1.18 2008/06/20 13:18:54 rwolf Exp $
+// $Id: TtDilepEvtSolution.cc,v 1.19 2008/07/24 10:36:03 rwolf Exp $
 //
 
 #include "PhysicsTools/Utilities/interface/deltaR.h"
@@ -25,30 +25,12 @@ TtDilepEvtSolution::~TtDilepEvtSolution()
 //-------------------------------------------
 pat::Jet TtDilepEvtSolution::getJetB() const 
 {
-  if(jetCorrScheme_==1){
-    //jet calibrated according to MC truth
-    return jetB_->mcFlavCorrJet();
-  }
-  else if(jetCorrScheme_==2){
-    return jetB_->bCorrJet();
-  }
-  else{
-    return *jetB_;
-  }
+  return *jetB_;
 }
 
 pat::Jet TtDilepEvtSolution::getJetBbar() const 
 {
-  if(jetCorrScheme_==1){
-    //jet calibrated according to MC truth
-    return jetBbar_->mcFlavCorrJet();
-  }
-  else if(jetCorrScheme_==2){
-    return jetBbar_->bCorrJet();
-  }
-  else{
-    return *jetBbar_;
-  }
+  return *jetBbar_;
 }
 
 //-------------------------------------------

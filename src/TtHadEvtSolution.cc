@@ -1,5 +1,5 @@
 //
-// $Id: TtHadEvtSolution.cc,v 1.6 2008/01/25 13:34:29 vadler Exp $
+// $Id: TtHadEvtSolution.cc,v 1.7 2008/02/15 12:10:54 rwolf Exp $
 // adapted TtSemiEvtSolution.cc,v 1.13 2007/07/05 23:43:08 lowette Exp 
 // for fully hadronic channel
 
@@ -37,86 +37,32 @@ TtHadEvtSolution::~TtHadEvtSolution()
 //-------------------------------------------
 pat::Jet TtHadEvtSolution::getHadb() const 
 {
-  if(jetCorrScheme_==1){
-    //jet calibrated according to MC truth
-    return hadb_->mcFlavCorrJet();
-  }
-  else if(jetCorrScheme_==2){
-    return hadb_->bCorrJet();
-  }
-  else{
-    return *hadb_;
-  }
+  return *hadb_;
 }
 
 pat::Jet TtHadEvtSolution::getHadp() const 
 {
-  if(jetCorrScheme_==1){
-    //jet calibrated according to MC truth
-    return hadp_->mcFlavCorrJet();
-  }
-  else if(jetCorrScheme_==2){
-    return hadp_->wCorrJet();
-  }
-  else{
-    return *hadp_;
-  }
+  return *hadp_;
 }
 
 pat::Jet TtHadEvtSolution::getHadq() const 
 {
-  if(jetCorrScheme_==1){
-    //jet calibrated according to MC truth
-    return hadq_->mcFlavCorrJet();
-  }
-  else if(jetCorrScheme_==2){
-    return hadq_->wCorrJet();
-  }
-  else{
-    return *hadq_;
-  }
+  return *hadq_;
 }
 
 pat::Jet TtHadEvtSolution::getHadbbar() const 
 {
-  if(jetCorrScheme_==1){
-    //jet calibrated according to MC truth
-    return hadbbar_->mcFlavCorrJet();
-  }
-  else if(jetCorrScheme_==2){
-    return hadbbar_->bCorrJet();
-  }
-  else{
-    return *hadbbar_;
-  }
+  return *hadbbar_;
 }
 
 pat::Jet TtHadEvtSolution::getHadj() const 
 {
-  if(jetCorrScheme_==1){
-    //jet calibrated according to MC truth
-    return hadj_->mcFlavCorrJet();
-  }
-  else if(jetCorrScheme_==2){
-    return hadj_->wCorrJet();
-  }
-  else{
-    return *hadj_;
-  }
+  return *hadj_;
 }
 
 pat::Jet TtHadEvtSolution::getHadk() const 
 {
-  if(jetCorrScheme_==1){
-    //jet calibrated according to MC truth
-    return hadk_->mcFlavCorrJet();
-  }
-  else if(jetCorrScheme_==2){
-    return hadk_->wCorrJet();
-  }
-  else{
-    return *hadk_;
-  }
+  return *hadk_;
 }
 
 //-------------------------------------------
@@ -125,29 +71,6 @@ pat::Jet TtHadEvtSolution::getHadk() const
 // By definition pq and b are the top quark, 
 // jk and bbar the anti-top - check if it 
 // makes sense ....
-reco::Particle TtHadEvtSolution::getRecHadt() const 
-{
-  // FIXME: the charge from the genevent
-  return reco::Particle(0,this->getRecHadp().p4()+this->getRecHadq().p4()+this->getRecHadb().p4());
-}
-
-reco::Particle TtHadEvtSolution::getRecHadtbar() const 
-{
-  // FIXME: the charge from the genevent
-  return reco::Particle(0,this->getRecHadj().p4()+this->getRecHadk().p4()+this->getRecHadbbar().p4());
-}
-
-reco::Particle TtHadEvtSolution::getRecHadW_plus() const 
-{
-  // FIXME: the charge from the genevent
-  return reco::Particle(0,this->getRecHadp().p4()+this->getRecHadq().p4());
-}
-
-reco::Particle TtHadEvtSolution::getRecHadW_minus() const 
-{
-  // FIXME: the charge from the genevent
-  return reco::Particle(0,this->getRecHadj().p4()+this->getRecHadk().p4());
-}
 
 reco::Particle TtHadEvtSolution::getCalHadt() const 
 { 

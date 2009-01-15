@@ -1,5 +1,5 @@
 //
-// $Id: StEvtSolution.h,v 1.10 2008/01/25 13:32:12 vadler Exp $
+// $Id: StEvtSolution.h,v 1.11 2008/02/15 12:10:39 rwolf Exp $
 //
 
 #ifndef TopObjects_StEvtSolution_h
@@ -50,17 +50,6 @@ class StEvtSolution {
   const reco::GenParticle * getGenNeutrino() const;
   const reco::GenParticle * getGenLepW()     const;
   const reco::GenParticle * getGenLept()     const;
-
-  //-------------------------------------------
-  // get uncalibrated reco objects
-  //-------------------------------------------
-  pat::JetType   getRecBottom()   const { return this->getBottom().recJet(); };
-  pat::JetType   getRecLight()    const { return this->getLight().recJet(); };
-  pat::Muon      getRecMuon()     const { return this->getMuon(); };     // redundant
-  pat::Electron  getRecElectron() const { return this->getElectron(); }; // redundant
-  pat::MET       getRecNeutrino() const { return this->getNeutrino(); }; // redundant
-  reco::Particle getRecLepW()     const { return this->getLepW(); };     // redundant
-  reco::Particle getRecLept()     const;
 
   //-------------------------------------------
   // get objects from kinematic fit

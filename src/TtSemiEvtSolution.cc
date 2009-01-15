@@ -1,5 +1,5 @@
 //
-// $Id: TtSemiEvtSolution.cc,v 1.25 2008/05/09 21:20:42 srappocc Exp $
+// $Id: TtSemiEvtSolution.cc,v 1.26 2008/07/03 21:26:38 srappocc Exp $
 //
 
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
@@ -38,92 +38,24 @@ TtSemiEvtSolution::~TtSemiEvtSolution()
 //------------------------------------------- 
 pat::Jet TtSemiEvtSolution::getHadb() const 
 {
-  if (jetCorrScheme_ == 1) return hadb_->mcFlavCorrJet(); // calibrate jets according to MC truth
-  else if (jetCorrScheme_ == 2) return hadb_->bCorrJet();
-  else return *hadb_;
+  return *hadb_;
 }
 
 pat::Jet TtSemiEvtSolution::getHadp() const 
 {
-  if (jetCorrScheme_ == 1) return hadp_->mcFlavCorrJet(); // calibrate jets according to MC truth
-  else if (jetCorrScheme_ == 2) return hadp_->wCorrJet();
-  else return *hadp_;
+  return *hadp_;
 }
 
 pat::Jet TtSemiEvtSolution::getHadq() const 
 {
-  if (jetCorrScheme_ == 1) return hadq_->mcFlavCorrJet(); // calibrate jets according to MC truth
-  else if (jetCorrScheme_ == 2) return hadq_->wCorrJet();
-  else return *hadq_;
+  return *hadq_;
 }
 
 pat::Jet TtSemiEvtSolution::getLepb() const 
 {
-  if (jetCorrScheme_ == 1) return lepb_->mcFlavCorrJet(); // calibrate jets according to MC truth
-  else if (jetCorrScheme_ == 2) return lepb_->bCorrJet();
-  else return *lepb_;
+  return *lepb_;
 }
 
-//-------------------------------------------
-// get (un-)/calibrated reco objects
-//-------------------------------------------
-reco::Particle TtSemiEvtSolution::getRecHadt() const 
-{
-  // FIXME: the charge from the genevent
-  return reco::Particle(0,this->getRecHadp().p4() + this->getRecHadq().p4() + this->getRecHadb().p4());
-}
-
-reco::Particle TtSemiEvtSolution::getRecHadW() const 
-{
-  // FIXME: the charge from the genevent
-  return reco::Particle(0,this->getRecHadp().p4() + this->getRecHadq().p4());
-}
-
-reco::Particle TtSemiEvtSolution::getRecLept() const 
-{
-  // FIXME: the charge from the genevent
-  reco::Particle p;
-  if (this->getDecay() == "muon")     p = reco::Particle(0,this->getRecLepm().p4() + this->getRecLepn().p4() + this->getRecLepb().p4());
-  if (this->getDecay() == "electron") p = reco::Particle(0,this->getRecLepe().p4() + this->getRecLepn().p4() + this->getRecLepb().p4());
-  return p;
-}
-
-reco::Particle TtSemiEvtSolution::getRecLepW() const 
-{ 
-  // FIXME: the charge from the genevent
-  reco::Particle p;
-  if (this->getDecay() == "muon")     p = reco::Particle(0,this->getRecLepm().p4() + this->getRecLepn().p4());
-  if (this->getDecay() == "electron") p = reco::Particle(0,this->getRecLepe().p4() + this->getRecLepn().p4());
-  return p;
-}
-
-// FIXME: Why these functions??? Not needed!
-  // methods to get calibrated objects 
-reco::Particle TtSemiEvtSolution::getCalHadt() const 
-{ 
-  return reco::Particle(0,this->getCalHadp().p4() + this->getCalHadq().p4() + this->getCalHadb().p4()); 
-}
-
-reco::Particle TtSemiEvtSolution::getCalHadW() const 
-{ 
-  return reco::Particle(0,this->getCalHadp().p4() + this->getCalHadq().p4()); 
-}
-
-reco::Particle TtSemiEvtSolution::getCalLept() const 
-{
-  reco::Particle p;
-  if (this->getDecay() == "muon")     p = reco::Particle(0,this->getRecLepm().p4() + this->getRecLepn().p4() + this->getCalLepb().p4());
-  if (this->getDecay() == "electron") p = reco::Particle(0,this->getRecLepe().p4() + this->getRecLepn().p4() + this->getCalLepb().p4());
-  return p;
-}
-
-reco::Particle TtSemiEvtSolution::getCalLepW() const 
-{
-  reco::Particle p;
-  if (this->getDecay() == "muon")     p = reco::Particle(0,this->getRecLepm().p4() + this->getRecLepn().p4());
-  if (this->getDecay() == "electron") p = reco::Particle(0,this->getRecLepe().p4() + this->getRecLepn().p4());
-  return p;
-}
 
 //-------------------------------------------
 // get objects from kinematic fit
