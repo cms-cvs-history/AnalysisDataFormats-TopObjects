@@ -1,4 +1,6 @@
 #include "FWCore/Utilities/interface/EDMException.h"
+#include "FWCore/MessageLogger/interface/MessageLogger.h"
+
 #include "PhysicsTools/CandUtils/interface/pdgIdUtils.h"
 #include "AnalysisDataFormats/TopObjects/interface/TopGenEvent.h"
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
@@ -25,19 +27,18 @@ TopGenEvent::candidate(int id) const
 void
 TopGenEvent::dumpEventContent() const 
 {
-  using std::cout;
-  using std::endl;
-
-  cout << endl;
-  cout << "--------------------------------------" << endl;
-  cout << "- Dump TopGenEvent Content           -" << endl;
-  cout << "--------------------------------------" << endl;
+  edm::LogVerbatim( "topGenEvt" ) 
+    << "\n"
+    << "--------------------------------------\n"
+    << "- Dump TopGenEvent Content           -\n"
+    << "--------------------------------------\n";
   for (reco::GenParticleCollection::const_iterator part = parts_->begin(); 
        part<parts_->end(); ++part) {
-    cout << "pdgId: "  << part->pdgId()     << " " 
-	 << "mass: "   << part->p4().mass() << " "
-	 << "energy: " << part->energy()    << " " 
-	 << "pt: "     << part->pt() << endl; 
+    edm::LogVerbatim( "topGenEvt" ) 
+      << "pdgId: "  << part->pdgId()     << "  " 
+      << "mass: "   << part->p4().mass() << "  "
+      << "energy: " << part->energy()    << "  " 
+      << "pt: "     << part->pt()        << "\n"; 
   }
 }
 
@@ -99,12 +100,12 @@ TopGenEvent::singleNeutrino() const
 }
 
 std::vector<const reco::GenParticle*> 
-TopGenEvent::lightQuarks(bool plusB) const 
+TopGenEvent::lightQuarks(bool bIncluded) const 
 {
   std::vector<const reco::GenParticle*> lightQuarks;
   reco::GenParticleCollection::const_iterator part = parts_->begin();
   for ( ; part < parts_->end(); ++part) {
-    if( (plusB && abs(part->pdgId())==5) || (abs(part->pdgId())<5) ) {
+    if( (bIncluded && abs(part->pdgId())==5) || (abs(part->pdgId())<5) ) {
       if( dynamic_cast<const reco::GenParticle*>( &(*part) ) == 0){
 	throw edm::Exception( edm::errors::InvalidReference, "Not a GenParticle" );
       }

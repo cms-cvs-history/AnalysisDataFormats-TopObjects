@@ -1,5 +1,5 @@
 //
-// $Id: TtGenEvent.cc,v 1.21 2008/06/17 10:21:43 rwolf Exp $
+// $Id: TtGenEvent.cc,v 1.22 2008/08/06 23:12:05 rwolf Exp $
 //
 
 #include "FWCore/Utilities/interface/EDMException.h"
@@ -34,34 +34,54 @@ TtGenEvent::semiLeptonicChannel() const
 }
 
 const reco::GenParticle* 
-TtGenEvent::hadronicDecayQuark() const 
+TtGenEvent::hadronicDecayQuark(bool invert) const 
 {
   const reco::GenParticle* cand=0;
-  if (singleLepton()) {
-    const reco::GenParticleCollection & partsColl = *parts_;
-    for (unsigned int i = 0; i < partsColl.size(); ++i) {
-      if (abs(partsColl[i].pdgId()) < 5 && reco::flavour(partsColl[i])>0) {
-        cand = &partsColl[i];
+  //catch W boson and check for its daughters for a quark
+  for(reco::GenParticleCollection::const_iterator w=parts_->begin(); w!=parts_->end(); ++w){
+    if( w->status()==TopDecayID::unfrag && abs( w->pdgId() )==TopDecayID::WID ){
+      for(reco::GenParticle::const_iterator wd=w->begin(); wd!=w->end(); ++wd){ 
+	if( wd->status()==TopDecayID::unfrag && (reco::flavour(*wd)>0 && !invert) ){
+	  cand = dynamic_cast<const reco::GenParticle* > (&(*wd));
+	  if(cand == 0){
+	    throw edm::Exception( edm::errors::InvalidReference, "Not a GenParticle" );
+	  }
+	}
       }
     }
   }
+//// ----------------- ////
+//// delete after test ////
+//// ----------------- //// 
+//   if (singleLepton()) {
+//     const reco::GenParticleCollection & partsColl = *parts_;
+//     for (unsigned int i = 0; i < partsColl.size(); ++i) {
+//       if (abs(partsColl[i].pdgId()) < 5 && reco::flavour(partsColl[i])>0) {
+// 	cand = &partsColl[i];
+//       }
+//     }
+//   }
   return cand;
 }
 
-const reco::GenParticle* 
-TtGenEvent::hadronicDecayQuarkBar() const 
-{
-  const reco::GenParticle* cand=0;
-  if (singleLepton()) {
-    const reco::GenParticleCollection & partsColl = *parts_;
-    for (unsigned int i = 0; i < partsColl.size(); ++i) {
-      if (abs(partsColl[i].pdgId()) < 5 && reco::flavour(partsColl[i])<0) {
-        cand = &partsColl[i];
-      }
-    }
-  }
-  return cand;
-}
+//// ----------------- ////
+//// delete after test ////
+//// ----------------- //// 
+// const reco::GenParticle* 
+// TtGenEvent::hadronicDecayQuarkBar() const 
+// {
+//   const reco::GenParticle* cand=0;
+//
+//   if (singleLepton()) {
+//     const reco::GenParticleCollection & partsColl = *parts_;
+//     for (unsigned int i = 0; i < partsColl.size(); ++i) {
+//       if (abs(partsColl[i].pdgId()) < 5 && reco::flavour(partsColl[i])<0) {
+//         cand = &partsColl[i];
+//       }
+//     }
+//   }
+//   return cand;
+// }
 
 const reco::GenParticle* 
 TtGenEvent::hadronicDecayB() const 
