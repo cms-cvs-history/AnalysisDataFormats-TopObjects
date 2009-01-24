@@ -27,18 +27,17 @@ TopGenEvent::candidate(int id) const
 void
 TopGenEvent::dumpEventContent() const 
 {
-  edm::LogVerbatim( "topGenEvt" ) 
-    << "\n"
-    << "--------------------------------------\n"
-    << "- Dump TopGenEvent Content           -\n"
-    << "--------------------------------------\n";
+  edm::LogVerbatim log("topGenEvt");
+  log << "\n"
+      << "--------------------------------------\n"
+      << "- Dump TopGenEvent Content           -\n"
+      << "--------------------------------------\n";
   for (reco::GenParticleCollection::const_iterator part = parts_->begin(); 
        part<parts_->end(); ++part) {
-    edm::LogVerbatim( "topGenEvt" ) 
-      << "pdgId: "  << part->pdgId()     << "  " 
-      << "mass: "   << part->p4().mass() << "  "
-      << "energy: " << part->energy()    << "  " 
-      << "pt: "     << part->pt()        << "\n"; 
+    log << "pdgId:"  << std::setw(5)  << part->pdgId()     << ", "
+	<< "mass:"   << std::setw(11) << part->p4().mass() << ", "
+	<< "energy:" << std::setw(11) << part->energy()    << ", " 
+	<< "pt:"     << std::setw(11) << part->pt()        << "\n"; 
   }
 }
 
