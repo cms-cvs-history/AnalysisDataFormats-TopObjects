@@ -43,10 +43,10 @@ TtSemiLeptonicEvent::print()
   std::string jetString = " - JetMatch: ";
   for(unsigned idx = 0; idx < 4; idx++) {
     switch(idx) {
-    case TtSemiLepEvtPartons::LightQ    : jetString += "LightP "; break;
-    case TtSemiLepEvtPartons::LightQBar : jetString += "LightQ "; break;
-    case TtSemiLepEvtPartons::HadB      : jetString += " HadB  "  ; break;
-    case TtSemiLepEvtPartons::LepB      : jetString += " LepB  "  ; break;
+    case TtSemiLepEvtPartonsFwd::LightQ    : jetString += "LightP "; break;
+    case TtSemiLepEvtPartonsFwd::LightQBar : jetString += "LightQ "; break;
+    case TtSemiLepEvtPartonsFwd::HadB      : jetString += " HadB  "  ; break;
+    case TtSemiLepEvtPartonsFwd::LepB      : jetString += " LepB  "  ; break;
     }
   }
 
