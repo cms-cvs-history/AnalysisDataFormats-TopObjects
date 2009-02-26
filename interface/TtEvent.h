@@ -26,8 +26,10 @@ class TtEvent {
 
  public:
 
-  /// leptonic decay channels
-  enum LepDecay {kNone, kElec, kMuon, kTau};
+  /// leptonic decay channels (replaced by WDecay::LeptonType in TtGenEvent)
+  /// if it causes trouble with reflex dictionaries we have to switch back
+  // enum LepDecay {kNone, kElec, kMuon, kTau};
+
   /// supported classes of event hypotheses
   enum HypoClassKey {kGeom, kWMassMaxSumPt, kMaxSumPtWMass, kGenMatch, kMVADisc, kKinFit};
   /// pair of hypothesis and lepton jet combinatorics for a given hypothesis
@@ -41,7 +43,7 @@ class TtEvent {
   virtual ~TtEvent(){};
 
   /// get leptonic decay channels
-  std::pair<LepDecay, LepDecay> lepDecays() const { return lepDecays_; }
+  std::pair<WDecay::LeptonType, WDecay::LeptonType> lepDecays() const { return lepDecays_; }
   /// get event hypothesis; there can be more hypotheses of a certain 
   /// class (sorted by quality); per default the best hypothesis is returned
   const reco::CompositeCandidate& eventHypo(const HypoClassKey& key, const unsigned& cmb=0) const { return (evtHyp_.find(key)->second)[cmb].first; };
@@ -79,7 +81,7 @@ class TtEvent {
   int correspondingHypo(const HypoClassKey& key1, const unsigned& hyp1, const HypoClassKey& key2) const;
 
   /// set leptonic decay channels
-  void setLepDecays(const LepDecay& lepDecTop1, const LepDecay& lepDecTop2) { lepDecays_=std::make_pair(lepDecTop1, lepDecTop2); };
+  void setLepDecays(const WDecay::LeptonType& lepDecTop1, const WDecay::LeptonType& lepDecTop2) { lepDecays_=std::make_pair(lepDecTop1, lepDecTop2); };
   /// set TtGenEvent
   void setGenEvent(const edm::Handle<TtGenEvent>& evt) { genEvt_=edm::RefProd<TtGenEvent>(evt); };
   /// add new hypotheses
@@ -100,7 +102,7 @@ class TtEvent {
  protected:
 
   /// leptonic decay channels
-  std::pair<LepDecay, LepDecay> lepDecays_;
+   std::pair<WDecay::LeptonType, WDecay::LeptonType> lepDecays_;
   /// reference to TtGenEvent (has to be kept in the event!)
   edm::RefProd<TtGenEvent> genEvt_;
   /// map of hypotheses; for each HypoClassKey a vector of 

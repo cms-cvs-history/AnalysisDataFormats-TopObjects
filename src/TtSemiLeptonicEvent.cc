@@ -17,9 +17,9 @@ TtSemiLeptonicEvent::print()
   else if( this->genEvent()->isSemiLeptonic() ) {
     log << "Semi-leptonic TtBar, ";
     switch( this->genEvent()->semiLeptonicChannel() ) {
-    case TtGenEvent::kElec : log << "Electron"; break;
-    case TtGenEvent::kMuon : log << "Muon"    ; break;
-    case TtGenEvent::kTau  : log << "Tau"     ; break;
+    case WDecay::kElec : log << "Electron"; break;
+    case WDecay::kMuon : log << "Muon"    ; break;
+    case WDecay::kTau  : log << "Tau"     ; break;
     default                : log << "Unknown" ; break;
     }
     log << " Channel";

@@ -1,5 +1,5 @@
 //
-// $Id: TtGenEvent.cc,v 1.22.2.1 2009/01/23 00:36:47 rwolf Exp $
+// $Id: TtGenEvent.cc,v 1.22.2.2 2009/01/23 02:12:30 rwolf Exp $
 //
 
 #include "FWCore/Utilities/interface/EDMException.h"
@@ -7,9 +7,6 @@
 #include "AnalysisDataFormats/TopObjects/interface/TtGenEvent.h"
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
 
-TtGenEvent::TtGenEvent()
-{
-}
 
 TtGenEvent::TtGenEvent(reco::GenParticleRefProd & parts, reco::GenParticleRefProd & inits)
 {
@@ -17,18 +14,14 @@ TtGenEvent::TtGenEvent(reco::GenParticleRefProd & parts, reco::GenParticleRefPro
   initPartons_= inits;
 }
 
-TtGenEvent::~TtGenEvent()
-{
-}
-
-TtGenEvent::LeptonType 
+WDecay::LeptonType 
 TtGenEvent::semiLeptonicChannel() const 
 {
-  LeptonType type=kNone;
+  WDecay::LeptonType type=WDecay::kNone;
   if( isSemiLeptonic() && singleLepton() ){
-    if( fabs(singleLepton()->pdgId())==11 ) type=kElec;
-    if( fabs(singleLepton()->pdgId())==13 ) type=kMuon;
-    if( fabs(singleLepton()->pdgId())==15 ) type=kTau;
+    if( fabs(singleLepton()->pdgId())==TopDecayID::elecID ) type=WDecay::kElec;
+    if( fabs(singleLepton()->pdgId())==TopDecayID::muonID ) type=WDecay::kMuon;
+    if( fabs(singleLepton()->pdgId())==TopDecayID::tauID  ) type=WDecay::kTau;
   }
   return type;
 }
@@ -226,7 +219,7 @@ TtGenEvent::neutrinoBar() const
 }
 
 const reco::GenParticle* 
-TtGenEvent::quarkFromTop() const 
+TtGenEvent::lightQFromTopBar() const 
 {
   const reco::GenParticle* cand=0;
   const reco::GenParticleCollection & partsColl = *parts_;
@@ -240,7 +233,7 @@ TtGenEvent::quarkFromTop() const
 }
 
 const reco::GenParticle* 
-TtGenEvent::quarkFromTopBar() const 
+TtGenEvent::lightQBarFromTopBar() const 
 {
   const reco::GenParticle* cand=0;
   const reco::GenParticleCollection & partsColl = *parts_;
@@ -254,7 +247,7 @@ TtGenEvent::quarkFromTopBar() const
 }
 
 const reco::GenParticle* 
-TtGenEvent::quarkFromAntiTop() const 
+TtGenEvent::lightQFromTop() const 
 {
   const reco::GenParticle* cand=0;
   const reco::GenParticleCollection & partsColl = *parts_;
@@ -268,7 +261,7 @@ TtGenEvent::quarkFromAntiTop() const
 }
 
 const reco::GenParticle* 
-TtGenEvent::quarkFromAntiTopBar() const 
+TtGenEvent::lightQBarFromTop() const 
 {
   const reco::GenParticle* cand=0;
   const reco::GenParticleCollection & partsColl = *parts_;

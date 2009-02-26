@@ -5,21 +5,14 @@
 
 
 namespace TtSemiLepDaughter{
-  /// semileptonic daughter names for common
+  /// semi-leptonic daughter names for common
   /// use and use with the hypotheses
   static const std::string Nu  ="Nu"  , Lep ="Lep" , LepW="LepW", LepB="LepB", LepTop="LepTop";
   static const std::string HadQ="HadQ", HadP="HadP", HadW="HadW", HadB="HadB", HadTop="HadTop"; 
 }
 
-namespace TtSemiLepEvtPartons{
-  /// semileptonic parton names for the use of 
-  /// the lepton jet combinatorics; this order  
-  /// has to be obeyed strictly then!
-  enum { LightQ, LightQBar, HadB, LepB, Lepton };
-}
-
 // ----------------------------------------------------------------------
-// common derived class for: 
+// derived class for: 
 //
 //  * TtFullLeptonicEvent
 //
