@@ -1,5 +1,5 @@
-#ifndef TtSemiLepEvtPartons_h
-#define TtSemiLepEvtPartons_h
+#ifndef TtEventPartons_h
+#define TtEventPartons_h
 
 #include "DataFormats/Candidate/interface/Candidate.h"
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
@@ -22,14 +22,14 @@
 // ----------------------------------------------------------------------
 
 
-class TtFullLepEvtPartons {
+class TtFullLepEventPartons {
 
  public:
 
   /// empty constructor
-  TtFullLepEvtPartons(){};
+  TtFullLepEventPartons(){};
   /// default destructor
-  ~TtFullLepEvtPartons(){};
+  ~TtFullLepEventPartons(){};
 
   /// return vector of partons in the order defined in TtGenEvent
   std::vector<const reco::Candidate*> vec(const TtGenEvent& genEvt)
@@ -38,18 +38,18 @@ class TtFullLepEvtPartons {
     vec.push_back( (genEvt.isFullLeptonic() && genEvt.b()   ) ? genEvt.b()    : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
     vec.push_back( (genEvt.isFullLeptonic() && genEvt.bBar()) ? genEvt.bBar() : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
     return vec;
-  }
+  };
 };
 
 
-class TtSemiLepEvtPartons {
+class TtSemiLepEventPartons {
 
  public:
 
   /// empty constructor
-  TtSemiLepEvtPartons(){};
+  TtSemiLepEventPartons(){};
   /// default destructor
-  ~TtSemiLepEvtPartons(){};
+  ~TtSemiLepEventPartons(){};
 
   /// return vector of partons in the order defined in TtGenEvent
   std::vector<const reco::Candidate*> vec(const TtGenEvent& genEvt)
@@ -60,31 +60,31 @@ class TtSemiLepEvtPartons {
     vec.push_back( (genEvt.isSemiLeptonic() && genEvt.hadronicDecayB()       ) ? genEvt.hadronicDecayB()        : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
     vec.push_back( (genEvt.isSemiLeptonic() && genEvt.leptonicDecayB()       ) ? genEvt.leptonicDecayB()        : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
     return vec;
-  }
+  };
 };
 
 
-class TtFullHadEvtPartons {
+class TtFullHadEventPartons {
 
  public:
 
   /// empty constructor
-  TtFullHadEvtPartons(){};
+  TtFullHadEventPartons(){};
   /// default destructor
-  ~TtFullHadEvtPartons(){};
+  ~TtFullHadEventPartons(){};
 
   /// return vector of partons in the order defined in TtGenEvent
   std::vector<const reco::Candidate*> vec(const TtGenEvent& genEvt)
   {
     std::vector<const reco::Candidate*> vec;
-    vec.push_back( (genEvt.isFullHadronic() && genEvt.lightQFromTop()      ) ? genEvt.quarkFromTop()        : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
-    vec.push_back( (genEvt.isFullHadronic() && genEvt.lightQBarFromTop()   ) ? genEvt.quarkFromTopBar()     : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
+    vec.push_back( (genEvt.isFullHadronic() && genEvt.lightQFromTop()      ) ? genEvt.lightQFromTop()       : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
+    vec.push_back( (genEvt.isFullHadronic() && genEvt.lightQBarFromTop()   ) ? genEvt.lightQBarFromTop()    : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
     vec.push_back( (genEvt.isFullHadronic() && genEvt.b()                  ) ? genEvt.b()                   : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
-    vec.push_back( (genEvt.isFullHadronic() && genEvt.lightQFromTopBar()   ) ? genEvt.quarkFromAntiTop()    : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
-    vec.push_back( (genEvt.isFullHadronic() && genEvt.lightQBarFromTopBar()) ? genEvt.quarkFromAntiTopBar() : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
+    vec.push_back( (genEvt.isFullHadronic() && genEvt.lightQFromTopBar()   ) ? genEvt.lightQFromTopBar()    : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
+    vec.push_back( (genEvt.isFullHadronic() && genEvt.lightQBarFromTopBar()) ? genEvt.lightQBarFromTopBar() : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
     vec.push_back( (genEvt.isFullHadronic() && genEvt.bBar()               ) ? genEvt.bBar()                : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false) );
     return vec;
-  }
+  };
 };
 
 
