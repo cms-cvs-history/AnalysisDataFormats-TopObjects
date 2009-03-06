@@ -85,6 +85,10 @@ class TtGenEvent: public TopGenEvent {
   const reco::GenParticle* hadronicDecayQuark(bool invert=false) const;
   /// get light anti-quark of hadronic decay branch
   const reco::GenParticle* hadronicDecayQuarkBar() const {return hadronicDecayQuark(true); };
+  /// gluons as radiated from the leptonicly decaying top quark
+  std::vector<const reco::GenParticle*> leptonicDecayTopRadiation() const;
+  /// gluons as radiated from the hadronicly decaying top quark
+  std::vector<const reco::GenParticle*> hadronicDecayTopRadiation() const;
   /// get lepton for semi-leptonic or full leptonic decays
   const reco::GenParticle* lepton() const;
   /// get anti-lepton for semi-leptonic or full leptonic decays
