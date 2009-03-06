@@ -44,27 +44,40 @@ TopGenEvent::dumpEventContent() const
 }
 
 int
-TopGenEvent::numberOfLeptons() const
+TopGenEvent::numberOfLeptons(bool fromWBoson) const
 {
   int lep=0;
   const reco::GenParticleCollection & partsColl = *parts_;
   for (unsigned int i = 0; i < partsColl.size(); ++i) {
-    if (reco::isLepton(partsColl[i])&&(partsColl[i].status()==3)) {
-      ++lep;
+    if (reco::isLepton(partsColl[i])) {
+      if(fromWBoson){
+	if(partsColl[i].mother() &&  abs(partsColl[i].mother()->pdgId())==TopDecayID::WID){
+	  ++lep;
+	}
+      }
+      else{
+	++lep;
+      }
     }
   }  
   return lep;
 }
 
 int
-TopGenEvent::numberOfBQuarks() const
+TopGenEvent::numberOfBQuarks(bool fromTopQuark) const
 {
   int bq=0;
   const reco::GenParticleCollection & partsColl = *parts_;
   for (unsigned int i = 0; i < partsColl.size(); ++i) {
-    if (abs(partsColl[i].pdgId())==5) {// &&
-      //abs(partsColl[i].mother()->pdgId())==6) {
-      ++bq;
+    if (abs(partsColl[i].pdgId())==TopDecayID::bID) {
+      if(fromTopQuark){
+	if(partsColl[i].mother() &&  abs(partsColl[i].mother()->pdgId())==TopDecayID::tID){
+	  ++bq;
+	}
+      }
+      else{
+	++bq;
+      }
     }
   }  
   return bq;
@@ -77,7 +90,8 @@ TopGenEvent::singleLepton() const
   if (numberOfLeptons() == 1) {
     const reco::GenParticleCollection & partsColl = *parts_;
     for (unsigned int i = 0; i < partsColl.size(); ++i) {
-      if (reco::isLepton(partsColl[i])&&(partsColl[i].status()==3)) {
+      if (reco::isLepton(partsColl[i]) && partsColl[i].mother() &&
+	  abs(partsColl[i].mother()->pdgId())==TopDecayID::WID) {
         cand = &partsColl[i];
       }
     }
@@ -92,7 +106,8 @@ TopGenEvent::singleNeutrino() const
   if (numberOfLeptons()==1) {
     const reco::GenParticleCollection & partsColl = *parts_;
     for (unsigned int i = 0; i < partsColl.size(); ++i) {
-      if (reco::isNeutrino(partsColl[i])&&(partsColl[i].status()==3)) {
+      if (reco::isNeutrino(partsColl[i]) && partsColl[i].mother() &&
+	  abs(partsColl[i].mother()->pdgId())==TopDecayID::WID) {
         cand = &partsColl[i];
       }
     }
@@ -106,7 +121,7 @@ TopGenEvent::lightQuarks(bool bIncluded) const
   std::vector<const reco::GenParticle*> lightQuarks;
   reco::GenParticleCollection::const_iterator part = parts_->begin();
   for ( ; part < parts_->end(); ++part) {
-    if( (bIncluded && abs(part->pdgId())==5) || (abs(part->pdgId())<5) ) {
+    if( (bIncluded && abs(part->pdgId())==TopDecayID::bID) || abs(part->pdgId())<TopDecayID::bID ) {
       if( dynamic_cast<const reco::GenParticle*>( &(*part) ) == 0){
 	throw edm::Exception( edm::errors::InvalidReference, "Not a GenParticle" );
       }
@@ -115,3 +130,20 @@ TopGenEvent::lightQuarks(bool bIncluded) const
   }  
   return lightQuarks;
 }
+
+std::vector<const reco::GenParticle*> 
+TopGenEvent::radiatedGluons(int pdgId) const{
+  std::vector<const reco::GenParticle*> rads;
+  for (reco::GenParticleCollection::const_iterator part = parts_->begin(); part < parts_->end(); ++part) {
+    if(part->pdgId()==TopDecayID::glueID){
+      if ( part->mother() && part->mother()->pdgId()==TopDecayID::tID ){
+	if( dynamic_cast<const reco::GenParticle*>( &(*part) ) == 0){
+	  throw edm::Exception( edm::errors::InvalidReference, "Not a GenParticle" );
+	}
+	rads.push_back( part->clone() );
+      }
+    }
+  }  
+  return rads;
+}
+

@@ -47,12 +47,14 @@ class TopGenEvent {
   const reco::GenParticleCollection& particles() const { return *parts_; }
   /// return particles of initial partons
   const reco::GenParticleCollection& initialPartons() const { return *initPartons_;}
+  /// return radiated gluons from particle with pdgId
+  std::vector<const reco::GenParticle*> radiatedGluons(int pdgId) const;
   /// return all light quarks or all quarks including b's 
   std::vector<const reco::GenParticle*> lightQuarks(bool plusB=false) const;
   /// return number of leptons in the decay chain
-  int numberOfLeptons() const;
+  int numberOfLeptons(bool fromWBoson=true) const;
   /// return number of b quarks in the decay chain
-  int numberOfBQuarks() const;
+  int numberOfBQuarks(bool fromTopQuark=true) const;
 
   /// get candidate with given pdg id if available; 0 else 
   const reco::GenParticle* candidate(int id) const;
