@@ -1,5 +1,0 @@
-<use name=FWCore/Framework>
-<use name=AnalysisDataFormats/TopObjects>
-
-<library file=testGenEvent.cc name=testGenEvent>
-</library>
