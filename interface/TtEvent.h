@@ -26,10 +26,6 @@ class TtEvent {
 
  public:
 
-  /// leptonic decay channels (replaced by WDecay::LeptonType in TtGenEvent)
-  /// if it causes trouble with reflex dictionaries we have to switch back
-  // enum LepDecay {kNone, kElec, kMuon, kTau};
-
   /// supported classes of event hypotheses
   enum HypoClassKey {kGeom, kWMassMaxSumPt, kMaxSumPtWMass, kGenMatch, kMVADisc, kKinFit};
   /// pair of hypothesis and lepton jet combinatorics for a given hypothesis
