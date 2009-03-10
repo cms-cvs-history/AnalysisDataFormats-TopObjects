@@ -1,5 +1,5 @@
 //
-// $Id: TtGenEvent.cc,v 1.22.2.3 2009/02/26 20:27:50 rwolf Exp $
+// $Id: TtGenEvent.cc,v 1.22.2.4 2009/03/06 21:51:06 rwolf Exp $
 //
 
 #include "FWCore/Utilities/interface/EDMException.h"
@@ -293,7 +293,7 @@ TtGenEvent::lightQBarFromTop() const
 
 std::vector<const reco::GenParticle*> TtGenEvent::leptonicDecayTopRadiation() const{
   if(leptonicDecayTop()){
-    return (hadronicDecayTop()->pdgId()>0 ? radiatedGluons(TopDecayID::tID) : radiatedGluons(-TopDecayID::tID));
+    return (leptonicDecayTop()->pdgId()>0 ? radiatedGluons(TopDecayID::tID) : radiatedGluons(-TopDecayID::tID));
   }
   std::vector<const reco::GenParticle*> rad;
   return (rad);
