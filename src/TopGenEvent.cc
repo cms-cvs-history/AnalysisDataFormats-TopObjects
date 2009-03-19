@@ -29,7 +29,7 @@ TopGenEvent::candidate(int id) const
 void
 TopGenEvent::dumpEventContent() const 
 {
-  edm::LogVerbatim log("topGenEvt");
+  edm::LogVerbatim log("TopGenEvent:dump");
   log << "\n"
       << "--------------------------------------\n"
       << "- Dump TopGenEvent Content           -\n"
@@ -56,6 +56,50 @@ TopGenEvent::numberOfLeptons(bool fromWBoson) const
 	}
       }
       else{
+	++lep;
+      }
+    }
+  }  
+  return lep;
+}
+
+int
+TopGenEvent::numberOfLeptons(WDecay::LeptonType typeRestriction, bool fromWBoson) const
+{
+  int leptonType=-1;
+  switch(typeRestriction){
+    // resolve whether or not there is
+    // any restriction in lepton types
+  case WDecay::kElec: 
+    leptonType=TopDecayID::elecID;
+    break;
+  case WDecay::kMuon: 
+    leptonType=TopDecayID::muonID;
+    break;
+  case WDecay::kTau: 
+    leptonType=TopDecayID::tauID;
+    break;
+  case WDecay::kNone:
+    break;
+  }
+  int lep=0;
+  const reco::GenParticleCollection & partsColl = *parts_;
+  for(unsigned int i = 0; i < partsColl.size(); ++i) {
+    if(fromWBoson){
+      // restrict to particles originating from the W boson
+      if( !(partsColl[i].mother() &&  abs(partsColl[i].mother()->pdgId())==TopDecayID::WID) ){
+	continue;
+      }
+    }
+    if(leptonType>0){
+      // in case of lepton type restriction
+      if( abs(partsColl[i].pdgId())==leptonType ){
+	++lep;
+      }
+    }
+    else{
+      // take any lepton type into account else
+      if( reco::isLepton(partsColl[i]) ){
 	++lep;
       }
     }

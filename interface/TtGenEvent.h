@@ -25,12 +25,6 @@ namespace TtFullHadEvtPartons{
   enum { LightQTop, LightQBarTop, B, LightQTopBar, LightQBarTopBar, BBar};
 }
 
-namespace WDecay{
-  /// classification of leptons in the decay channel 
-  /// of the W boson used in several places throughout 
-  /// the package
-  enum LeptonType {kNone, kElec, kMuon, kTau};
-}
 
 // ----------------------------------------------------------------------
 // derived class for: 
@@ -57,17 +51,22 @@ class TtGenEvent: public TopGenEvent {
   /// check if the event can be classified as ttbar
   bool isTtBar() const {return (top() && topBar());}
   /// check if the event can be classified as full hadronic
-  bool isFullHadronic() const { return isTtBar() ? numberOfLeptons()==0 : false;}
+  bool isFullHadronic(bool excludeTauLeptons=true) const { return isTtBar() ? isNumberOfLeptons(excludeTauLeptons, 0) : false;}
   /// check if the event can be classified as semi-laptonic
-  bool isSemiLeptonic() const { return isTtBar() ? numberOfLeptons()==1 : false;}
+  bool isSemiLeptonic(bool excludeTauLeptons=true) const { return isTtBar() ? isNumberOfLeptons(excludeTauLeptons, 1) : false;}
   /// check if the event can be classified as full leptonic
-  bool isFullLeptonic() const { return isTtBar() ? numberOfLeptons()==2 : false;}
-  /// return decay channel
+  bool isFullLeptonic(bool excludeTauLeptons=true) const { return isTtBar() ? isNumberOfLeptons(excludeTauLeptons, 2) : false;}
+
+  /// return decay channel; all leptons including taus are allowed 
   WDecay::LeptonType semiLeptonicChannel() const;
-  /// check if the event is semi-leptonic with the lepton being of typeA
+  /// check if the event is semi-leptonic with the lepton being of typeA; all leptons including taus are allowed
   bool isSemiLeptonic(WDecay::LeptonType typeA) const { return (semiLeptonicChannel()==typeA ? true : false); };
-  /// check if the event is semi-leptonic with the lepton being of typeA or typeB
+  /// check if the event is semi-leptonic with the lepton being of typeA or typeB; all leptons including taus are allowed
   bool isSemiLeptonic(WDecay::LeptonType typeA, WDecay::LeptonType typeB) const { return ( (semiLeptonicChannel()==typeA || semiLeptonicChannel()==typeB)? true : false); };
+  // return decay channel (as a std::pair of LeptonType's); all leptons including taus are allowed
+  std::pair<WDecay::LeptonType, WDecay::LeptonType> fullLeptonicChannel() const;
+  /// check if the event is full leptonic with the lepton being of typeA or typeB irrelevant of order; all leptons including taus are allowed
+  bool isFullLeptonic(WDecay::LeptonType typeA, WDecay::LeptonType typeB) const;
 
   /// get W of leptonic decay branch
   const reco::GenParticle* leptonicDecayW() const;
@@ -105,6 +104,19 @@ class TtGenEvent: public TopGenEvent {
   const reco::GenParticle* lightQFromTopBar() const;
   /// get light anti-quark from anti-top for full hadronic decays
   const reco::GenParticle* lightQBarFromTopBar() const;
+
+ private:
+
+  /// check whether the number of leptons among the daughters of the W boson is nlep
+  /// or not; there is an option to exclude taus from the list of leptons to consider
+  bool isNumberOfLeptons(bool excludeTauLeptons, int nlep) const {return excludeTauLeptons ? (numberOfLeptons()-numberOfLeptons(WDecay::kTau))==nlep : numberOfLeptons()==nlep;}
 };
+
+inline bool
+TtGenEvent::isFullLeptonic(WDecay::LeptonType typeA, WDecay::LeptonType typeB) const
+{
+  return ( (fullLeptonicChannel().first==typeA && fullLeptonicChannel().second==typeB)||
+	   (fullLeptonicChannel().first==typeB && fullLeptonicChannel().second==typeA));
+}
 
 #endif

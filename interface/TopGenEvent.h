@@ -21,6 +21,13 @@ namespace TopDecayID{
   static const int tauID  = 15;
 }
 
+namespace WDecay{
+  /// classification of leptons in the decay channel 
+  /// of the W boson used in several places throughout 
+  /// the package
+  enum LeptonType {kNone, kElec, kMuon, kTau};
+}
+
 // ----------------------------------------------------------------------
 // common base class for: 
 //
@@ -53,6 +60,8 @@ class TopGenEvent {
   std::vector<const reco::GenParticle*> lightQuarks(bool plusB=false) const;
   /// return number of leptons in the decay chain
   int numberOfLeptons(bool fromWBoson=true) const;
+  /// return number of leptons in the decay chain
+  int numberOfLeptons(WDecay::LeptonType type, bool fromWBoson=true) const;
   /// return number of b quarks in the decay chain
   int numberOfBQuarks(bool fromTopQuark=true) const;
   /// return number of top anti-top sisters

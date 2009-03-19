@@ -1,11 +1,11 @@
 //
-// $Id: TtGenEvent.cc,v 1.22.2.4 2009/03/06 21:51:06 rwolf Exp $
+// $Id: TtGenEvent.cc,v 1.22.2.5 2009/03/10 16:23:01 rwolf Exp $
 //
 
 #include "FWCore/Utilities/interface/EDMException.h"
 #include "PhysicsTools/CandUtils/interface/pdgIdUtils.h"
-#include "AnalysisDataFormats/TopObjects/interface/TtGenEvent.h"
 #include "DataFormats/HepMCCandidate/interface/GenParticle.h"
+#include "AnalysisDataFormats/TopObjects/interface/TtGenEvent.h"
 
 
 TtGenEvent::TtGenEvent(reco::GenParticleRefProd & parts, reco::GenParticleRefProd & inits)
@@ -18,12 +18,31 @@ WDecay::LeptonType
 TtGenEvent::semiLeptonicChannel() const 
 {
   WDecay::LeptonType type=WDecay::kNone;
-  if( isSemiLeptonic() && singleLepton() ){
-    if( fabs(singleLepton()->pdgId())==TopDecayID::elecID ) type=WDecay::kElec;
-    if( fabs(singleLepton()->pdgId())==TopDecayID::muonID ) type=WDecay::kMuon;
-    if( fabs(singleLepton()->pdgId())==TopDecayID::tauID  ) type=WDecay::kTau;
+  if( isSemiLeptonic(false) && singleLepton() ){
+    if( abs(singleLepton()->pdgId())==TopDecayID::elecID ) type=WDecay::kElec;
+    if( abs(singleLepton()->pdgId())==TopDecayID::muonID ) type=WDecay::kMuon;
+    if( abs(singleLepton()->pdgId())==TopDecayID::tauID  ) type=WDecay::kTau;
   }
   return type;
+}
+
+std::pair<WDecay::LeptonType, WDecay::LeptonType>
+TtGenEvent::fullLeptonicChannel() const 
+{
+  WDecay::LeptonType typeA=WDecay::kNone, typeB=WDecay::kNone;  
+  if( isFullLeptonic(false) ){
+    if( lepton() ){
+      if( abs(lepton()->pdgId())==TopDecayID::elecID ) typeA=WDecay::kElec;
+      if( abs(lepton()->pdgId())==TopDecayID::muonID ) typeA=WDecay::kMuon;
+      if( abs(lepton()->pdgId())==TopDecayID::tauID  ) typeA=WDecay::kTau;      
+    }
+    if( leptonBar() ){
+      if( abs(lepton()->pdgId())==TopDecayID::elecID ) typeB=WDecay::kElec;
+      if( abs(lepton()->pdgId())==TopDecayID::muonID ) typeB=WDecay::kMuon;
+      if( abs(lepton()->pdgId())==TopDecayID::tauID  ) typeB=WDecay::kTau;      
+    }
+  }
+  return ( std::pair<WDecay::LeptonType,WDecay::LeptonType>(typeA, typeB) );
 }
 
 const reco::GenParticle* 
