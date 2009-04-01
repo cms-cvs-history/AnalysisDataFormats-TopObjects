@@ -144,38 +144,6 @@ TopGenEvent::topSisters() const
   return sisters;
 }
 
-const reco::GenParticle* 
-TopGenEvent::singleLepton() const 
-{
-  const reco::GenParticle* cand = 0;
-  if (numberOfLeptons() == 1) {
-    const reco::GenParticleCollection & partsColl = *parts_;
-    for (unsigned int i = 0; i < partsColl.size(); ++i) {
-      if (reco::isLepton(partsColl[i]) && partsColl[i].mother() &&
-	  abs(partsColl[i].mother()->pdgId())==TopDecayID::WID) {
-        cand = &partsColl[i];
-      }
-    }
-  }
-  return cand;
-}
-
-const reco::GenParticle* 
-TopGenEvent::singleNeutrino() const 
-{
-  const reco::GenParticle* cand=0;
-  if (numberOfLeptons()==1) {
-    const reco::GenParticleCollection & partsColl = *parts_;
-    for (unsigned int i = 0; i < partsColl.size(); ++i) {
-      if (reco::isNeutrino(partsColl[i]) && partsColl[i].mother() &&
-	  abs(partsColl[i].mother()->pdgId())==TopDecayID::WID) {
-        cand = &partsColl[i];
-      }
-    }
-  }
-  return cand;
-}
-
 std::vector<const reco::GenParticle*> 
 TopGenEvent::lightQuarks(bool bIncluded) const 
 {

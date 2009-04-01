@@ -1,5 +1,5 @@
 //
-// $Id: StGenEvent.cc,v 1.7 2008/02/15 12:10:51 rwolf Exp $
+// $Id: StGenEvent.cc,v 1.7.4.1 2009/03/06 21:51:06 rwolf Exp $
 //
 
 #include "FWCore/Utilities/interface/EDMException.h"
@@ -25,7 +25,7 @@ const reco::GenParticle*
 StGenEvent::decayB() const 
 {
   const reco::GenParticle* cand=0;
-  if (singleLepton()) {
+  if( singleLepton() ){
     const reco::GenParticleCollection & partsColl = *parts_;
     const reco::GenParticle & singleLep = *singleLepton();
     for (unsigned int i = 0; i < parts_->size(); ++i) {
@@ -43,7 +43,7 @@ const reco::GenParticle*
 StGenEvent::associatedB() const 
 {
   const reco::GenParticle* cand=0;
-  if (singleLepton()) {
+  if( singleLepton() ){
     const reco::GenParticleCollection & partsColl = *parts_;
     const reco::GenParticle & singleLep = *singleLepton();
     for (unsigned int i = 0; i < parts_->size(); ++i) {
@@ -52,6 +52,34 @@ StGenEvent::associatedB() const
 	// ... but it should be the opposite!
         cand = &partsColl[i];
       }
+    }
+  }
+  return cand;
+}
+
+const reco::GenParticle* 
+StGenEvent::singleLepton() const 
+{
+  const reco::GenParticle* cand = 0;
+  const reco::GenParticleCollection& partsColl = *parts_;
+  for (unsigned int i = 0; i < partsColl.size(); ++i) {
+    if (reco::isLepton(partsColl[i]) && partsColl[i].mother() &&
+	abs(partsColl[i].mother()->pdgId())==TopDecayID::WID) {
+      cand = &partsColl[i];
+    }
+  }
+  return cand;
+}
+
+const reco::GenParticle* 
+StGenEvent::singleNeutrino() const 
+{
+  const reco::GenParticle* cand=0;
+  const reco::GenParticleCollection & partsColl = *parts_;
+  for (unsigned int i = 0; i < partsColl.size(); ++i) {
+    if (reco::isNeutrino(partsColl[i]) && partsColl[i].mother() &&
+	abs(partsColl[i].mother()->pdgId())==TopDecayID::WID) {
+      cand = &partsColl[i];
     }
   }
   return cand;

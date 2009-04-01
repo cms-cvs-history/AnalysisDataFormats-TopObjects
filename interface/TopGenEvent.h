@@ -6,7 +6,7 @@
 
 
 namespace TopDecayID{
-  /// identification of top dacays; used for following
+  /// identification of top decays; used for following
   /// the decay chain in TopDecaySubset
   static const int stable = 2;
   static const int unfrag = 3;
@@ -69,34 +69,30 @@ class TopGenEvent {
 
   /// get candidate with given pdg id if available; 0 else 
   const reco::GenParticle* candidate(int id) const;
-  /// return single lepton if available; 0 else
-  const reco::GenParticle* singleLepton() const;
-  /// return single neutrino if available; 0 else
-  const reco::GenParticle* singleNeutrino() const;
   /// return electron if available; 0 else
-  const reco::GenParticle* eMinus() const   { return candidate( 11 );}
+  const reco::GenParticle* eMinus() const   { return candidate( TopDecayID::elecID );}
   /// return positron if available; 0 else
-  const reco::GenParticle* ePlus() const    { return candidate(-11 );}
+  const reco::GenParticle* ePlus() const    { return candidate(-TopDecayID::elecID );}
   /// return muon if available; 0 else
-  const reco::GenParticle* muMinus() const  { return candidate( 13 );}
+  const reco::GenParticle* muMinus() const  { return candidate( TopDecayID::muonID );}
   /// return anti-muon if available; 0 else
-  const reco::GenParticle* muPlus() const   { return candidate(-13 );}
+  const reco::GenParticle* muPlus() const   { return candidate(-TopDecayID::muonID );}
   /// return tau if available; 0 else
-  const reco::GenParticle* tauMinus() const { return candidate( 15 );}
+  const reco::GenParticle* tauMinus() const { return candidate( TopDecayID::tauID  );}
   /// return anti-tau if available; 0 else
-  const reco::GenParticle* tauPlus() const  { return candidate(-15 );}
+  const reco::GenParticle* tauPlus() const  { return candidate(-TopDecayID::tauID  );}
   /// return W minus if available; 0 else
-  const reco::GenParticle* wMinus() const   { return candidate( 24 );}
+  const reco::GenParticle* wMinus() const   { return candidate( TopDecayID::WID    );}
   /// return W plus if available; 0 else
-  const reco::GenParticle* wPlus() const    { return candidate(-24 );}
+  const reco::GenParticle* wPlus() const    { return candidate(-TopDecayID::WID    );}
   /// return top if available; 0 else
-  const reco::GenParticle* top() const      { return candidate(  6 );}
+  const reco::GenParticle* top() const      { return candidate( TopDecayID::tID    );}
   /// return anti-top if available; 0 else
-  const reco::GenParticle* topBar() const   { return candidate( -6 );}
+  const reco::GenParticle* topBar() const   { return candidate(-TopDecayID::tID    );}
   /// return b quark if available; 0 else
-  const reco::GenParticle* b() const        { return candidate(  5 );}
+  const reco::GenParticle* b() const        { return candidate( TopDecayID::bID    );}
   /// return anti-b quark if available; 0 else
-  const reco::GenParticle* bBar() const     { return candidate( -5 );}
+  const reco::GenParticle* bBar() const     { return candidate(-TopDecayID::bID    );}
 
   /// print content of the top decay chain as formated 
   /// LogInfo to the MessageLogger output for debugging
