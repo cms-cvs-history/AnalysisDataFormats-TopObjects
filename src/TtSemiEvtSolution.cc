@@ -1,5 +1,5 @@
 //
-// $Id: TtSemiEvtSolution.cc,v 1.26 2008/07/03 21:26:38 srappocc Exp $
+// $Id: TtSemiEvtSolution.cc,v 1.27 2008/11/14 19:20:51 rwolf Exp $
 //
 
 #include "FWCore/MessageLogger/interface/MessageLogger.h"
@@ -190,7 +190,7 @@ double TtSemiEvtSolution::getLRJetCombObsVal(unsigned int selObs) const
 //-------------------------------------------
 void TtSemiEvtSolution::setGenEvt(const edm::Handle<TtGenEvent> & aGenEvt)
 {
-  if( !aGenEvt->isSemiLeptonic() ){
+  if( !aGenEvt->isSemiLeptonic(false) ){
     edm::LogWarning( "TtGenEventNotFilled" ) << "genEvt is not semi-leptonic; TtGenEvent is not filled";
     return;
   }
