@@ -1,5 +1,5 @@
 //
-// $Id: TtGenEvent.cc,v 1.22.2.6 2009/03/19 12:47:08 rwolf Exp $
+// $Id: TtGenEvent.cc,v 1.22.2.7 2009/04/01 22:32:06 rwolf Exp $
 //
 
 #include "FWCore/Utilities/interface/EDMException.h"
@@ -16,7 +16,7 @@ WDecay::LeptonType
 TtGenEvent::semiLeptonicChannel() const 
 {
   WDecay::LeptonType type=WDecay::kNone;
-  if( isSemiLeptonic(false) && singleLepton() ){
+  if( isSemiLeptonic() && singleLepton() ){
     if( abs(singleLepton()->pdgId())==TopDecayID::elecID ) type=WDecay::kElec;
     if( abs(singleLepton()->pdgId())==TopDecayID::muonID ) type=WDecay::kMuon;
     if( abs(singleLepton()->pdgId())==TopDecayID::tauID  ) type=WDecay::kTau;
@@ -28,7 +28,7 @@ std::pair<WDecay::LeptonType, WDecay::LeptonType>
 TtGenEvent::fullLeptonicChannel() const 
 {
   WDecay::LeptonType typeA=WDecay::kNone, typeB=WDecay::kNone;  
-  if( isFullLeptonic(false) ){
+  if( isFullLeptonic() ){
     if( lepton() ){
       if( abs(lepton()->pdgId())==TopDecayID::elecID ) typeA=WDecay::kElec;
       if( abs(lepton()->pdgId())==TopDecayID::muonID ) typeA=WDecay::kMuon;

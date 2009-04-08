@@ -52,11 +52,11 @@ class TtGenEvent: public TopGenEvent {
   /// check if the event can be classified as ttbar
   bool isTtBar() const {return (top() && topBar());}
   /// check if the event can be classified as full hadronic
-  bool isFullHadronic(bool excludeTauLeptons=true) const { return isTtBar() ? isNumberOfLeptons(excludeTauLeptons, 0) : false;}
+  bool isFullHadronic(bool excludeTauLeptons=false) const { return isTtBar() ? isNumberOfLeptons(excludeTauLeptons, 0) : false;}
   /// check if the event can be classified as semi-laptonic
-  bool isSemiLeptonic(bool excludeTauLeptons=true) const { return isTtBar() ? isNumberOfLeptons(excludeTauLeptons, 1) : false;}
+  bool isSemiLeptonic(bool excludeTauLeptons=false) const { return isTtBar() ? isNumberOfLeptons(excludeTauLeptons, 1) : false;}
   /// check if the event can be classified as full leptonic
-  bool isFullLeptonic(bool excludeTauLeptons=true) const { return isTtBar() ? isNumberOfLeptons(excludeTauLeptons, 2) : false;}
+  bool isFullLeptonic(bool excludeTauLeptons=false) const { return isTtBar() ? isNumberOfLeptons(excludeTauLeptons, 2) : false;}
 
   /// return decay channel; all leptons including taus are allowed 
   WDecay::LeptonType semiLeptonicChannel() const;
@@ -70,37 +70,37 @@ class TtGenEvent: public TopGenEvent {
   bool isFullLeptonic(WDecay::LeptonType typeA, WDecay::LeptonType typeB) const;
 
   /// return single lepton if available; 0 else
-  const reco::GenParticle* singleLepton(bool excludeTauLeptons=true) const;
+  const reco::GenParticle* singleLepton(bool excludeTauLeptons=false) const;
   /// return single neutrino if available; 0 else
-  const reco::GenParticle* singleNeutrino(bool excludeTauLeptons=true) const;
+  const reco::GenParticle* singleNeutrino(bool excludeTauLeptons=false) const;
   /// get W of leptonic decay branch
-  const reco::GenParticle* leptonicDecayW(bool excludeTauLeptons=true) const;
+  const reco::GenParticle* leptonicDecayW(bool excludeTauLeptons=false) const;
   /// get b of leptonic decay branch
-  const reco::GenParticle* leptonicDecayB(bool excludeTauLeptons=true) const;
+  const reco::GenParticle* leptonicDecayB(bool excludeTauLeptons=false) const;
   /// get top of leptonic decay branch
-  const reco::GenParticle* leptonicDecayTop(bool excludeTauLeptons=true) const;
+  const reco::GenParticle* leptonicDecayTop(bool excludeTauLeptons=false) const;
   /// get W of hadronic decay branch
-  const reco::GenParticle* hadronicDecayW(bool excludeTauLeptons=true) const;
+  const reco::GenParticle* hadronicDecayW(bool excludeTauLeptons=false) const;
   /// get b of hadronic decay branch
-  const reco::GenParticle* hadronicDecayB(bool excludeTauLeptons=true) const;
+  const reco::GenParticle* hadronicDecayB(bool excludeTauLeptons=false) const;
   /// get top of hadronic decay branch
-  const reco::GenParticle* hadronicDecayTop(bool excludeTauLeptons=true) const;
+  const reco::GenParticle* hadronicDecayTop(bool excludeTauLeptons=false) const;
   /// get light quark of hadronic decay branch
   const reco::GenParticle* hadronicDecayQuark(bool invert=false) const;
   /// get light anti-quark of hadronic decay branch
   const reco::GenParticle* hadronicDecayQuarkBar() const {return hadronicDecayQuark(true); };
   /// gluons as radiated from the leptonicly decaying top quark
-  std::vector<const reco::GenParticle*> leptonicDecayTopRadiation(bool excludeTauLeptons=true) const;
+  std::vector<const reco::GenParticle*> leptonicDecayTopRadiation(bool excludeTauLeptons=false) const;
   /// gluons as radiated from the hadronicly decaying top quark
-  std::vector<const reco::GenParticle*> hadronicDecayTopRadiation(bool excludeTauLeptons=true) const;
+  std::vector<const reco::GenParticle*> hadronicDecayTopRadiation(bool excludeTauLeptons=false) const;
   /// get lepton for semi-leptonic or full leptonic decays
-  const reco::GenParticle* lepton(bool excludeTauLeptons=true) const;
+  const reco::GenParticle* lepton(bool excludeTauLeptons=false) const;
   /// get anti-lepton for semi-leptonic or full leptonic decays
-  const reco::GenParticle* leptonBar(bool excludeTauLeptons=true) const;
+  const reco::GenParticle* leptonBar(bool excludeTauLeptons=false) const;
   /// get neutrino for semi-leptonic or full leptonic decays
-  const reco::GenParticle* neutrino(bool excludeTauLeptons=true) const;
+  const reco::GenParticle* neutrino(bool excludeTauLeptons=false) const;
   /// get anti-neutrino for semi-leptonic or full leptonic decays
-  const reco::GenParticle* neutrinoBar(bool excludeTauLeptons=true) const;
+  const reco::GenParticle* neutrinoBar(bool excludeTauLeptons=false) const;
   /// get light quark from top for full hadronic decays
   const reco::GenParticle* lightQFromTop() const;
   /// get light anti-quark from top for full hadronic decays
