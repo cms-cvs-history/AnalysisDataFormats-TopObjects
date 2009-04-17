@@ -1,5 +1,5 @@
 //
-// $Id: TtGenEvent.cc,v 1.22.2.7 2009/04/01 22:32:06 rwolf Exp $
+// $Id: TtGenEvent.cc,v 1.22.2.8 2009/04/08 20:51:49 rwolf Exp $
 //
 
 #include "FWCore/Utilities/interface/EDMException.h"
@@ -44,6 +44,38 @@ TtGenEvent::fullLeptonicChannel() const
 }
 
 const reco::GenParticle* 
+TtGenEvent::lepton(bool excludeTauLeptons) const 
+{
+  const reco::GenParticle* cand = 0;
+  const reco::GenParticleCollection& partsColl = *parts_;
+  for (unsigned int i = 0; i < partsColl.size(); ++i) {
+    if (reco::isLepton(partsColl[i]) && partsColl[i].mother() &&
+	abs(partsColl[i].mother()->pdgId())==TopDecayID::WID) {
+      if(reco::flavour(partsColl[i])>0){
+	cand = &partsColl[i];
+      }
+    }
+  }
+  return cand;
+}
+
+const reco::GenParticle* 
+TtGenEvent::leptonBar(bool excludeTauLeptons) const 
+{
+  const reco::GenParticle* cand = 0;
+  const reco::GenParticleCollection& partsColl = *parts_;
+  for (unsigned int i = 0; i < partsColl.size(); ++i) {
+    if (reco::isLepton(partsColl[i]) && partsColl[i].mother() &&
+	abs(partsColl[i].mother()->pdgId())==TopDecayID::WID) {
+      if(reco::flavour(partsColl[i])<0){
+	cand = &partsColl[i];
+      }
+    }
+  }
+  return cand;
+}
+
+const reco::GenParticle* 
 TtGenEvent::singleLepton(bool excludeTauLeptons) const 
 {
   const reco::GenParticle* cand = 0;
@@ -53,6 +85,38 @@ TtGenEvent::singleLepton(bool excludeTauLeptons) const
       if (reco::isLepton(partsColl[i]) && partsColl[i].mother() &&
 	  abs(partsColl[i].mother()->pdgId())==TopDecayID::WID) {
         cand = &partsColl[i];
+      }
+    }
+  }
+  return cand;
+}
+
+const reco::GenParticle* 
+TtGenEvent::neutrino(bool excludeTauLeptons) const 
+{
+  const reco::GenParticle* cand=0;
+  const reco::GenParticleCollection & partsColl = *parts_;
+  for (unsigned int i = 0; i < partsColl.size(); ++i) {
+    if (reco::isNeutrino(partsColl[i]) && partsColl[i].mother() &&
+	abs(partsColl[i].mother()->pdgId())==TopDecayID::WID) {
+      if(reco::flavour(partsColl[i])>0){
+	cand = &partsColl[i];
+      }
+    }
+  }
+  return cand;
+}
+
+const reco::GenParticle* 
+TtGenEvent::neutrinoBar(bool excludeTauLeptons) const 
+{
+  const reco::GenParticle* cand=0;
+  const reco::GenParticleCollection & partsColl = *parts_;
+  for (unsigned int i = 0; i < partsColl.size(); ++i) {
+    if (reco::isNeutrino(partsColl[i]) && partsColl[i].mother() &&
+	abs(partsColl[i].mother()->pdgId())==TopDecayID::WID) {
+      if(reco::flavour(partsColl[i])<0){
+	cand = &partsColl[i];
       }
     }
   }

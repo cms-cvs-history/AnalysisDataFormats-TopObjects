@@ -117,30 +117,6 @@ class TtGenEvent: public TopGenEvent {
   bool isNumberOfLeptons(bool excludeTauLeptons, int nlep) const {return excludeTauLeptons ? (numberOfLeptons()-numberOfLeptons(WDecay::kTau))==nlep : numberOfLeptons()==nlep;}
 };
 
-inline const reco::GenParticle* 
-TtGenEvent::lepton(bool excludeTauLeptons) const 
-{ 
-  return (singleLepton(excludeTauLeptons) && reco::flavour(*singleLepton(excludeTauLeptons))>0) ? singleLepton(excludeTauLeptons) : 0; 
-}
-
-inline const reco::GenParticle* 
-TtGenEvent::leptonBar(bool excludeTauLeptons) const 
-{ 
-  return (singleLepton(excludeTauLeptons) && reco::flavour(*singleLepton(excludeTauLeptons))<0) ? singleLepton(excludeTauLeptons) : 0; 
-}
-
-inline const reco::GenParticle* 
-TtGenEvent::neutrino(bool excludeTauLeptons) const 
-{ 
-  return (singleNeutrino(excludeTauLeptons) && reco::flavour(*singleNeutrino(excludeTauLeptons))>0) ? singleLepton(excludeTauLeptons) : 0; 
-}
-
-inline const reco::GenParticle* 
-TtGenEvent::neutrinoBar(bool excludeTauLeptons) const 
-{ 
-  return (singleNeutrino(excludeTauLeptons) && reco::flavour(*singleNeutrino(excludeTauLeptons))<0) ? singleLepton(excludeTauLeptons) : 0; 
-}
-
 inline bool
 TtGenEvent::isFullLeptonic(WDecay::LeptonType typeA, WDecay::LeptonType typeB) const
 {
