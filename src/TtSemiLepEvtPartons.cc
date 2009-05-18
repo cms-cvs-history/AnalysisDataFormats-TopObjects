@@ -14,7 +14,6 @@ TtSemiLepEvtPartons::vec(const TtGenEvent& genEvt)
     vec[LightQBar] = genEvt.hadronicDecayQuarkBar() ? genEvt.hadronicDecayQuarkBar() : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false);
     vec[HadB     ] = genEvt.hadronicDecayB()        ? genEvt.hadronicDecayB()        : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false);
     vec[LepB     ] = genEvt.leptonicDecayB()        ? genEvt.leptonicDecayB()        : new reco::GenParticle(0, reco::Particle::LorentzVector(), reco::Particle::Point(), 0, 0, false);
-    std::cout << "vec.size() = " << vec.size() << std::endl;
   }
   else {
     for(unsigned i=0; i<4; i++)
