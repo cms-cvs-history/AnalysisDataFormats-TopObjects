@@ -74,8 +74,8 @@ class TtEvent {
   double fitProb(const unsigned& cmb=0) const { return (cmb<fitProb_.size() ? fitProb_[cmb] : -1.); }
   /// return the weight of the kinematic solution of hypothesis 'cmb' if available; -1 else
   double solWeight(const unsigned& cmb=0) const { return (cmb<solWeight_.size() ? solWeight_[cmb] : -1.); }    
-  /// return if the kinematic solution of hypothesis 'cmb' is wright or wrong charge if available; -1 else
-  double isWrongCharge() const { return wrongCharge_; }  
+  /// return if the kinematic solution of hypothesis 'cmb' is right or wrong charge if available; -1 else
+  bool isWrongCharge() const { return wrongCharge_; }  
   /// return the hypothesis in hypothesis class 'key2', which 
   /// corresponds to hypothesis 'hyp1' in hypothesis class 'key1'
   int correspondingHypo(const HypoClassKey& key1, const unsigned& hyp1, const HypoClassKey& key2) const;
