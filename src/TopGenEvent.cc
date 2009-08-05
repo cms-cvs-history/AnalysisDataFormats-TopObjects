@@ -27,7 +27,7 @@ TopGenEvent::candidate(int id) const
 }
 
 void
-TopGenEvent::dumpEventContent() const 
+TopGenEvent::print() const 
 {
   edm::LogVerbatim log("TopGenEvent");
   log << "\n"

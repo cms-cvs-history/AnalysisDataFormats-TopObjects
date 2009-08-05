@@ -95,7 +95,7 @@ class TtSemiLeptonicEvent: public TtEvent {
   
   /// print full content of the structure as formated 
   /// LogInfo to the MessageLogger output for debugging
-  void print();
+  void print() const;
 };
 
 #endif
