@@ -96,7 +96,7 @@ class TopGenEvent {
 
   /// print content of the top decay chain as formated 
   /// LogInfo to the MessageLogger output for debugging
-  void dumpEventContent() const;
+  void print() const;
 
 
  protected:
