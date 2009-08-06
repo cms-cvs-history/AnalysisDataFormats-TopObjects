@@ -38,7 +38,6 @@ namespace WDecay{
    provides access and administration.
 */
 
-
 class TopGenEvent {
 
  public:
