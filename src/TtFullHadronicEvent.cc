@@ -25,12 +25,12 @@ TtFullHadronicEvent::print()
   log << " - JetLepComb: ";
   for(unsigned idx = 0; idx < 5; idx++) {
     switch(idx) {
-    case TtFullHadEvtPartons::LightQTop    : log << "LightQTop "; break;
-    case TtFullHadEvtPartons::LightQBarTop : log << "LightPTopBar "; break;
-    case TtFullHadEvtPartons::B            : log << " B  "; break;
-    case TtFullHadEvtPartons::LightQTopBar   : log << " LightQTopB  "; break;
-    case TtFullHadEvtPartons::LightQBarTopBar    : log << "LightPTopB "; break;
-    case TtFullHadEvtPartons::BBar      : log << " BBar  "; break;
+    case TtFullHadEvtPartons::LightQ    : log << "LightQ    "; break;
+    case TtFullHadEvtPartons::LightQBar : log << "LightQBar "; break;
+    case TtFullHadEvtPartons::B         : log << "B         "; break;
+    case TtFullHadEvtPartons::LightP    : log << "LightP    "; break;
+    case TtFullHadEvtPartons::LightPBar : log << "LightPBar "; break;
+    case TtFullHadEvtPartons::BBar      : log << "BBar      "; break;
     }
   }
   log << "\n";
@@ -80,6 +80,5 @@ TtFullHadronicEvent::print()
       }
     }
   }
-
   log << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";  
 }
