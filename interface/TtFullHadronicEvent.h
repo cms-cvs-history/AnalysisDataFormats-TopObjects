@@ -6,8 +6,8 @@
 namespace TtFullHadDaughter{
   /// full hadronic daughter names for common
   /// use and use with the hypotheses
-  static const std::string LightQ   ="LightQ"   , LightP="LightP", WPlus ="WPlus" , B   ="B"   , Top   ="Top";
-  static const std::string LightQBar="LightQBar", LightPBar   ="LightPBar"   , WMinus="WMinus", BBar="BBar", TopBar="TopBar"; 
+  static const std::string LightQ   ="LightQ"   , LightP   ="LightP",    WPlus ="WPlus" , B   ="B"   , Top   ="Top";
+  static const std::string LightQBar="LightQBar", LightPBar="LightPBar", WMinus="WMinus", BBar="BBar", TopBar="TopBar"; 
 }
 
 /**
@@ -37,6 +37,17 @@ class TtFullHadronicEvent: public TtEvent {
   const reco::Candidate* b(const std::string& key, const unsigned& cmb=0) const { return b(hypoClassKeyFromString(key), cmb); };
   /// get b of the given hypothesis
   const reco::Candidate* b(const HypoClassKey& key, const unsigned& cmb=0) const { return !isHypoValid(key,cmb) ? 0 : top(key,cmb)->daughter(TtFullHadDaughter::B); };
+
+  /// get light Q of the given hypothesis
+  const reco::Candidate* lightQ(const std::string& key, const unsigned& cmb=0) const { return lightQ(hypoClassKeyFromString(key), cmb); };
+  /// get light Q of the given hypothesis
+  const reco::Candidate* lightQ(const HypoClassKey& key, const unsigned& cmb=0) const { return !isHypoValid(key,cmb) ? 0 : top(key,cmb)->daughter(TtFullHadDaughter::LightQ); };
+
+  /// get light P of the given hypothesis
+  const reco::Candidate* lightP(const std::string& key, const unsigned& cmb=0) const { return lightP(hypoClassKeyFromString(key), cmb); };
+  /// get light P of the given hypothesis
+  const reco::Candidate* lightP(const HypoClassKey& key, const unsigned& cmb=0) const { return !isHypoValid(key,cmb) ? 0 : top(key,cmb)->daughter(TtFullHadDaughter::LightP); };
+
   /// get Wplus of the given hypothesis
   const reco::Candidate* wPlus(const std::string& key, const unsigned& cmb=0) const { return wPlus(hypoClassKeyFromString(key), cmb); };
   /// get Wplus of the given hypothesis
@@ -50,15 +61,32 @@ class TtFullHadronicEvent: public TtEvent {
   const reco::Candidate* bBar(const std::string& key, const unsigned& cmb=0) const { return bBar(hypoClassKeyFromString(key), cmb); };
   /// get anti-b of the given hypothesis
   const reco::Candidate* bBar(const HypoClassKey& key, const unsigned& cmb=0) const { return !isHypoValid(key,cmb) ? 0 : topBar(key,cmb)->daughter(TtFullHadDaughter::BBar  ); };
+
+  /// get light Q bar of the given hypothesis
+  const reco::Candidate* lightQBar(const std::string& key, const unsigned& cmb=0) const { return lightQBar(hypoClassKeyFromString(key), cmb); };
+  /// get light Q bar of the given hypothesis
+  const reco::Candidate* lightQBar(const HypoClassKey& key, const unsigned& cmb=0) const { return !isHypoValid(key,cmb) ? 0 : top(key,cmb)->daughter(TtFullHadDaughter::LightQBar); };
+
+  /// get light P bar of the given hypothesis
+  const reco::Candidate* lightPBar(const std::string& key, const unsigned& cmb=0) const { return lightPBar(hypoClassKeyFromString(key), cmb); };
+  /// get light P bar of the given hypothesis
+  const reco::Candidate* lightPBar(const HypoClassKey& key, const unsigned& cmb=0) const { return !isHypoValid(key,cmb) ? 0 : top(key,cmb)->daughter(TtFullHadDaughter::LightPBar); };
+
   /// get Wminus of the given hypothesis
   const reco::Candidate* wMinus(const std::string& key, const unsigned& cmb=0) const { return wMinus(hypoClassKeyFromString(key), cmb); };
   /// get Wminus of the given hypothesis
   const reco::Candidate* wMinus(const HypoClassKey& key, const unsigned& cmb=0) const { return !isHypoValid(key,cmb) ? 0 : topBar(key,cmb)->daughter(TtFullHadDaughter::WMinus); };
 
   /// get top of the TtGenEvent
-  const reco::GenParticle* top        () const { return (!genEvt_ ? 0 : this->genEvent()->top()        ); };
+  const reco::GenParticle* top        () const { return (!genEvt_ ? 0 : this->genEvent()->top()                ); };
   /// get b of the TtGenEvent
   const reco::GenParticle* b          () const { return (!genEvt_ ? 0 : this->genEvent()->b()          ); };
+
+  /// get light Q of the TtGenEvent
+  const reco::GenParticle* lightQ     () const { return (!genEvt_ ? 0 : this->genEvent()->daughterQuarkOfWPlus()     ); };
+  /// get light P of the TtGenEvent
+  const reco::GenParticle* lightP     () const { return (!genEvt_ ? 0 : this->genEvent()->daughterQuarkOfWMinus()     ); };
+
   /// get Wplus of the TtGenEvent
   const reco::GenParticle* wPlus      () const { return (!genEvt_ ? 0 : this->genEvent()->wPlus()      ); };
 
@@ -66,6 +94,12 @@ class TtFullHadronicEvent: public TtEvent {
   const reco::GenParticle* topBar     () const { return (!genEvt_ ? 0 : this->genEvent()->topBar()     ); };
   /// get anti-b of the TtGenEvent
   const reco::GenParticle* bBar       () const { return (!genEvt_ ? 0 : this->genEvent()->bBar()       ); };
+
+  /// get light Q bar of the TtGenEvent
+  const reco::GenParticle* lightQBar  () const { return (!genEvt_ ? 0 : this->genEvent()->daughterQuarkBarOfWPlus()  ); };
+  /// get light P bar of the TtGenEvent
+  const reco::GenParticle* lightPBar  () const { return (!genEvt_ ? 0 : this->genEvent()->daughterQuarkBarOfWMinus() ); };
+
   /// get Wminus of the TtGenEvent
   const reco::GenParticle* wMinus     () const { return (!genEvt_ ? 0 : this->genEvent()->wMinus()     ); };
 
