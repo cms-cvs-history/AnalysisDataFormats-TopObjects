@@ -8,7 +8,7 @@ TtFullHadronicEvent::print()
 {
   edm::LogInfo log("TtFullHadronicEvent");
 
-  log << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n";
+  log << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ \n";
 
   // get some information from the genEvent
   log << " TtGenEvent says: ";
@@ -23,14 +23,14 @@ TtFullHadronicEvent::print()
 
   // create a legend for the jetLepComb
   log << " - JetLepComb: ";
-  for(unsigned idx = 0; idx < 5; idx++) {
+  for(unsigned idx = 0; idx < 6; idx++) {
     switch(idx) {
-    case TtFullHadEvtPartons::LightQ    : log << "LightQ    "; break;
+    case TtFullHadEvtPartons::LightQ    : log << "  LightQ  "; break;
     case TtFullHadEvtPartons::LightQBar : log << "LightQBar "; break;
-    case TtFullHadEvtPartons::B         : log << "B         "; break;
-    case TtFullHadEvtPartons::LightP    : log << "LightP    "; break;
+    case TtFullHadEvtPartons::B         : log << "    B     "; break;
+    case TtFullHadEvtPartons::LightP    : log << "  LightP  "; break;
     case TtFullHadEvtPartons::LightPBar : log << "LightPBar "; break;
-    case TtFullHadEvtPartons::BBar      : log << "BBar      "; break;
+    case TtFullHadEvtPartons::BBar      : log << "   BBar   "; break;
     }
   }
   log << "\n";
@@ -40,7 +40,7 @@ TtFullHadronicEvent::print()
   for(EventHypo hyp = evtHyp_.begin(); hyp != evtHyp_.end(); ++hyp) {
     HypoClassKey hypKey = (*hyp).first;
     // header for each hypothesis
-    log << "------------------------------------------------------------ \n";
+    log << "------------------------------------------------------------------------ \n";
     switch(hypKey) {
     case kGeom          : log << " Geom"         ; break;
     case kWMassMaxSumPt : log << " WMassMaxSumPt"; break;
@@ -65,7 +65,7 @@ TtFullHadronicEvent::print()
       log << " * JetLepComb:";
       std::vector<int> jets = this->jetLeptonCombination( hypKey );
       for(unsigned int iJet = 0; iJet < jets.size(); iJet++) {
-	log << "   " << jets[iJet] << "   ";
+	log << "     " << jets[iJet] << "    ";
       }
       log << "\n";
       // specialties for some hypotheses
@@ -80,5 +80,5 @@ TtFullHadronicEvent::print()
       }
     }
   }
-  log << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";  
+  log << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++";
 }
