@@ -53,6 +53,7 @@ TtSemiLeptonicEvent::print()
     // header for each hypothesis
     log << "-------------------------------------------------- \n";
     switch(hypKey) {
+    case kTrivial       : log << " Trivial"      ; break;
     case kGeom          : log << " Geom"         ; break;
     case kWMassMaxSumPt : log << " WMassMaxSumPt"; break;
     case kMaxSumPtWMass : log << " MaxSumPtWMass"; break;

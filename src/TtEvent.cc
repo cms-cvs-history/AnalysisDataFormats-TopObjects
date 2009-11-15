@@ -16,6 +16,7 @@ TtEvent::HypoClassKey
 TtEvent::hypoClassKeyFromString(const std::string& label) const 
 {
    static HypoClassKeyStringToEnum hypoClassKeyStringToEnumMap[] = {
+      { "kTrivial",       kTrivial       },
       { "kGeom",          kGeom          },
       { "kWMassMaxSumPt", kWMassMaxSumPt },
       { "kMaxSumPtWMass", kMaxSumPtWMass },
@@ -37,7 +38,7 @@ TtEvent::hypoClassKeyFromString(const std::string& label) const
 
    // in case of unrecognized selection type
    if(!found){
-     throw cms::Exception("TtEventError") << label << " is not a recognized HypoClassKey";
+     throw cms::Exception("TtEventError") << label << " is not a recognized HypoClassKey.\n";
    }
    return value;
 }
